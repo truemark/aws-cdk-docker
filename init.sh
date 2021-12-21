@@ -14,10 +14,6 @@
 # AWS_ASSUME_ROLE_ARN
 # AWS_ROLE_SESSION_NAME
 
-# Used to execute command against multiple accounts
-# AWS_ACCOUNT_IDS
-# AWS_EXCLUDE_ACCOUNT_IDS
-
 # Exit on command failure and unset variables
 set -euo pipefail
 
