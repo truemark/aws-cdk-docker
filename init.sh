@@ -30,6 +30,12 @@ aws_pager_off
 # Handle AWS authentication
 aws_authentication
 
+# Assume the role into the next account if needed
+if_aws_assume_role
+
+# Set AWS_ACCOUNT_ID and verify match
+aws_account_id
+
 # Unlock with git-crypt if needed
 if_git_crypt_unlock
 
