@@ -8,4 +8,4 @@ RUN curl -sSL https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
     rm -rf /var/cache/yum && \
     npm install -g typescript aws-cdk --quiet
 COPY *.sh /
-ENTRYPOINT ["/pipe.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
