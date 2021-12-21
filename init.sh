@@ -18,7 +18,7 @@
 set -euo pipefail
 
 # Import helper functions
-source /helper.sh
+source /usr/local/bin/helper.sh
 
 # Turn off the AWS pager
 aws_pager_off

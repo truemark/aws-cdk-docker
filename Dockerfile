@@ -7,5 +7,7 @@ RUN curl -sSL https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
     yum clean all && \
     rm -rf /var/cache/yum && \
     npm install -g typescript aws-cdk --quiet
-COPY *.sh /
-ENTRYPOINT ["/entrypoint.sh"]
+COPY helper.sh /usr/local/bin/helper.sh
+COPY init.sh /usr/local/bin/init.sh
+COPY cdkw /usr/local/bin/cdkw
+ENTRYPOINT ["/usr/local/bin/cdkw"]
