@@ -8,6 +8,9 @@ on:
   schedule:
     # Run at 4PM UTC every Monday
     - cron: '0 16 * * 1'
+  permissions:
+    # https://github.com/gautamkrishnar/keepalive-workflow/discussions/13
+    contents: write
 
 jobs:
   build:
