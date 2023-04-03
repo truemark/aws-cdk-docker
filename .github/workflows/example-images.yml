@@ -18,7 +18,6 @@ jobs:
         with:
           role-to-assume: "${{ secrets.AWS_ASSUME_ROLE }}"
           aws-region: "us-east-2"
-          role-session-name: "aws-cdk-docker"
       - name: Setup ARM64 EC2
         id: ec2-arm64
         uses: truemark/aws-ec2-run-instance-action@b107107e68ea32907150547390cb89347a3a4388
