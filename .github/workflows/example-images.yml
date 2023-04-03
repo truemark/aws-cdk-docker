@@ -9,6 +9,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE }}
+          aws-region: us-east-2
       - name: Setup ARM64 EC2
         id: ec2-arm64
         uses: truemark/aws-ec2-run-instance-action@b107107e68ea32907150547390cb89347a3a4388
