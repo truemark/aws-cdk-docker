@@ -9,13 +9,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Hello world action step
-        id: hello
-        uses: truemark/example-github-docker-action@v1
+      - name: Setup ARM64 EC2
+        id: ec2-arm64
+        uses: truemark/aws-ec2-run-instance
         with:
-          who-to-greet: "Example Moo"
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+          security-group-id: sg-0baf5bcfe9f21efa5
+          subnet-id: subnet-09a35a2abd797dbf9
+          image-id: default-arm64
+          instance-type: c7g.large
+          instance-profile: 'TruemarkEC2RoleforSSM'
+          region: us-east-2
+
+#      - name: Get the output time
+#        run: echo "The time was ${{ steps.hello.outputs.time }}"
 #      - name: Login to Docker Hub
 #        uses: docker/login-action@v2
 #        with:
