@@ -20,7 +20,7 @@ jobs:
           aws-region: "us-east-2"
       - name: Setup ARM64 EC2
         id: ec2-arm64
-        uses: truemark/aws-ec2-run-instance-action@3669fe7a19ca957112abb65533318d8df9da36a2
+        uses: truemark/aws-ec2-run-instance-action@d22755223527c126773fbec9a8a52994654d5f93
         with:
           security-group-id: sg-0baf5bcfe9f21efa5
           subnet-id: subnet-09a35a2abd797dbf9
