@@ -120,6 +120,7 @@ jobs:
             -t truemark/aws-cdk:beta-amazonlinux-${{github.run_number}} \
             -t truemark/aws-cdk:beta-amazonlinux \
             -t truemark/aws-cdk:beta \
+            .
       - name: Terminate instances
         id: ec2-terminate
         uses: truemark/aws-ec2-instance-state-action@v1
@@ -133,9 +134,6 @@ jobs:
 #        uses: docker/setup-qemu-action@v2
 #        with:
 #          platforms: all
-
-
-#            .
 #          docker buildx build \
 #            --push \
 #            --platform linux/arm64,linux/amd64 \
