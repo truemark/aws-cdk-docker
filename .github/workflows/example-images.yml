@@ -15,8 +15,10 @@ jobs:
         uses: actions/checkout@v3
       - name: Generate Temporary SSH Keys
         run: |
-          ssh-keygen -t ed25519 -f id_ed25519 -q -N ''
-          echo "ssh_public_key=$(cat id_ed25519.pub)" >> $GITHUB_ENV
+          mkdir $HOME/.ssh
+          chmod 700 $HOME/.ssh
+          ssh-keygen -t ed25519 -f $HOME/.ssh/id_ed25519 -q -N ''
+          echo "ssh_public_key=$(cat $HOME/.ssh/id_ed25519.pub)" >> $GITHUB_ENV
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -56,8 +58,14 @@ jobs:
         with:
           instance-id: ${{ steps.ec2-arm64.outputs.instance-id }}
           region: "us-east-2"
-      - name: Echo EC2
-        run: echo ${{ steps.ec2-describe-arm64.outputs.public-dns-name }}
+      - name: Setup SSH Agent & Known Hosts
+        id: ssh-agent
+        run: |
+          ssh-agent -a
+          ssh-add $HOME/.ssh/id_ed25519
+          ssh-keyscan -p ${{ steps.ec2-describe-arm64.outputs.public-dns-name }}
+      - name: Echo Test
+        run: ssh ec2-user@${{ steps.ec2-describe-arm64.outputs.public-dns-name }} "cat /etc/amazon-linux-release"
 #      - name: Terminate EC2
 #        id: ec2-terminate
 #        uses: truemark/aws-ec2-instance-state-action@v1
