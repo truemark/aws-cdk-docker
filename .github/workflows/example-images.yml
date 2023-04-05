@@ -30,7 +30,7 @@ jobs:
           region: "us-east-2"
       - name: Wait for EC2
         id: ec2-wait
-        uses: truemark/aws-ec2-wait-action@7618439f23881e7feb2b42234f7c4d4b62e7880b
+        uses: truemark/aws-ec2-wait-action@f76e9403aae2883780facc77d13450b50c819e63
         with:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
           region: "us-east-2"
