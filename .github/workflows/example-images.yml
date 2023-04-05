@@ -37,7 +37,7 @@ jobs:
           timeout-ms: "600000"
       - name: Terminate EC2
         id: ec2-terminate
-        uses: truemark/aws-ec2-state-action@5d669baa6c0ae24b1ca2c84183d63b8398ce65d1
+        uses: truemark/aws-ec2-state-action@v1
         if: ${{ always() }}
         with:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
