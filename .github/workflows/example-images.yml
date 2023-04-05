@@ -64,7 +64,7 @@ jobs:
           ssh-agent -a /tmp/ssh-auth.sock
           export SSH_AUTH_SOCK="/tmp/ssh-auth.sock"
           ssh-add $HOME/.ssh/id_ed25519
-          ssh-keyscan -p 22 ${{ steps.ec2-describe-arm64.outputs.public-dns-name }}
+          ssh-keyscan -p 22 ${{ steps.ec2-describe-arm64.outputs.public-dns-name }} > $HOME/.ssh/known_hosts
       - name: Echo Test
         run: ssh ec2-user@${{ steps.ec2-describe-arm64.outputs.public-dns-name }} "cat /etc/amazon-linux-release"
       - name: Terminate EC2
