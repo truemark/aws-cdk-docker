@@ -24,7 +24,7 @@ jobs:
           aws-region: "us-east-2"
       - name: Setup ARM64 EC2
         id: ec2-arm64
-        uses: truemark/aws-ec2-run-instance-action@45cf2f72bcc55dbbf82183a56e053d988b485821
+        uses: truemark/aws-ec2-run-instance-action@86a8739787bb8e2186d48063efa8e08a98964c6a
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
@@ -33,6 +33,7 @@ jobs:
           instance-profile: "TruemarkEC2RoleforSSM"
           region: "us-east-2"
           user-data: |
+            #!/usr/bin/env bash
             yum install docker -y
             usermod -a -G docker ec2-user
             systemctl enable docker.service
