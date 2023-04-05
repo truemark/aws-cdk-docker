@@ -35,7 +35,14 @@ jobs:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
           region: "us-east-2"
           timeout-ms: "600000"
-
+      - name: Terminate EC2
+        id: ec2-terminate
+        uses: truemark/aws-ec2-state-action@5d669baa6c0ae24b1ca2c84183d63b8398ce65d1
+        if: ${{ always() }}
+        with:
+          instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
+          action: 'terminate'
+          region: "us-east-2"
 #      - name: Get the output time
 #        run: echo "The time was ${{ steps.hello.outputs.time }}"
 #      - name: Login to Docker Hub
