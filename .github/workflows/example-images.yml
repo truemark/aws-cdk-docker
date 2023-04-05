@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Generate Temporary SSH Keys
+        run: >
+          ssh-keygen -t ed25519-f /tmp/id_rsa -q -N ""
+          echo "ssh_public_key=$(cat /tmp/id_rsa.pub)" >> $GITHUB_ENV
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -28,6 +32,17 @@ jobs:
           instance-type: "c7g.large"
           instance-profile: "TruemarkEC2RoleforSSM"
           region: "us-east-2"
+          user-data: >
+            #!/bin/bash
+            sudo yum install docker -y
+            sudo usermod -a -G docker ec2-user
+            systemctl enable docker.service
+            systemctl start docker.service
+            mkdir -p /home/ec2-user/.ssh
+            touch /home/ec2-user/.ssh/authorized_keys
+            chmod 700 /home/ec2-user/.ssh
+            chmod 600 /home/ec2-user/.ssh/authorized_keys
+            echo "${{ env.ssh_public_key }}" >> /home/ec2-user/.ssh/authorized_keys
       - name: Wait for EC2
         id: ec2-wait
         uses: truemark/aws-ec2-instance-wait-action@v1
@@ -43,14 +58,14 @@ jobs:
           region: "us-east-2"
       - name: Echo EC2
         run: echo ${{ steps.ec2-describe-arm64.outputs.public-dns-name }}
-      - name: Terminate EC2
-        id: ec2-terminate
-        uses: truemark/aws-ec2-instance-state-action@v1
-        if: ${{ always() }}
-        with:
-          instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
-          action: "terminate"
-          region: "us-east-2"
+#      - name: Terminate EC2
+#        id: ec2-terminate
+#        uses: truemark/aws-ec2-instance-state-action@v1
+#        if: ${{ always() }}
+#        with:
+#          instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
+#          action: "terminate"
+#          region: "us-east-2"
 #      - name: Get the output time
 #        run: echo "The time was ${{ steps.hello.outputs.time }}"
 #      - name: Login to Docker Hub
