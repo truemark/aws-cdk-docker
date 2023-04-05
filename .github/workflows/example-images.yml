@@ -134,8 +134,8 @@ jobs:
             .
       - name: Copy to ECR
         run: |
-          apt-get update
-          apt-get install skopeo -y
+          sudo apt-get update
+          sudo apt-get install skopeo -y
           export ECR_PASSWORD=$(aws ecr-public get-login-password --region us-east-1)
           skopeo --insecure-policy copy --multi-arch all \
             docker://truemark/aws-cdk:beta \
