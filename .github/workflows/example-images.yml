@@ -148,7 +148,7 @@ jobs:
           skopeo --insecure-policy copy -a \
             docker://truemark/aws-cdk:beta-alpine \
             docker://public.ecr.aws/truemark/aws-cdk:beta-alpine \
-            --dest-username AWS --dest-password $ECR_PASSWORD \
+            --dest-username AWS --dest-password $ECR_PASSWORD
           skopeo --insecure-policy copy -a \
             docker://truemark/aws-cdk:beta-ubuntu \
             docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu \
