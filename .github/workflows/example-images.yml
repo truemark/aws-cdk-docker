@@ -61,7 +61,7 @@ jobs:
       - name: Setup SSH Agent & Known Hosts
         id: ssh-agent
         run: |
-          ssh-agent -a
+          ssh-agent
           ssh-add $HOME/.ssh/id_ed25519
           ssh-keyscan -p ${{ steps.ec2-describe-arm64.outputs.public-dns-name }}
       - name: Echo Test
