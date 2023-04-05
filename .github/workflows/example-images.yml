@@ -30,14 +30,22 @@ jobs:
           region: "us-east-2"
       - name: Wait for EC2
         id: ec2-wait
-        uses: truemark/aws-ec2-wait-action@v1
+        uses: truemark/aws-ec2-instance-wait-action@v1
         with:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
           region: "us-east-2"
           timeout-ms: "600000"
+      - name: Describe EC2
+        id: ec2-describe-arm64
+        uses: truemark/aws-ec2-describe-instance-action@v1
+        with:
+          instance-id: ${{ steps.ec2-arm64.outputs.instance-id }}
+          region: "us-east-2"
+      - name: Echo EC2
+        run: echo ${{ steps.ec2-describe-arm64.outputs.public-dns-name }}
       - name: Terminate EC2
         id: ec2-terminate
-        uses: truemark/aws-ec2-state-action@v1
+        uses: truemark/aws-ec2-instance-state-action@v1
         if: ${{ always() }}
         with:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
