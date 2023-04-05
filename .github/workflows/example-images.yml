@@ -137,25 +137,21 @@ jobs:
           apt-get update
           apt-get install skopeo -y
           export ECR_PASSWORD=$(aws ecr-public get-login-password --region us-east-1)
-          skopeo --insecure-policy \
-            copy docker://truemark/aws-cdk:beta \
+          skopeo --insecure-policy copy --multi-arch all \
+            docker://truemark/aws-cdk:beta \
             docker://public.ecr.aws/truemark/aws-cdk:beta \
-            --multi-arch all \
             --dest-username AWS --dest-password $ECR_PASSWORD
-          skopeo --insecure-policy \
-            copy docker://truemark/aws-cdk:beta-amazonlinux \
+          skopeo --insecure-policy copy --multi-arch all \
+            docker://truemark/aws-cdk:beta-amazonlinux \
             docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux \
-            --multi-arch all \
             --dest-username AWS --dest-password $ECR_PASSWORD
-          skopeo --insecure-policy \
-            copy docker://truemark/aws-cdk:beta-alpine \
+          skopeo --insecure-policy copy --multi-arch all \
+            docker://truemark/aws-cdk:beta-alpine \
             docker://public.ecr.aws/truemark/aws-cdk:beta-alpine \
-            --multi-arch all \
             --dest-username AWS --dest-password $ECR_PASSWORD
-          skopeo --insecure-policy \
-            copy docker://truemark/aws-cdk:beta-ubuntu \
+          skopeo --insecure-policy copy --multi-arch all \
+            docker://truemark/aws-cdk:beta-ubuntu \
             docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu \
-            --multi-arch all \
             --dest-username AWS --dest-password $ECR_PASSWORD
       - name: Terminate instances
         id: ec2-terminate
