@@ -26,7 +26,7 @@ jobs:
           aws-region: "us-east-2"
       - name: Setup arm64 instance
         id: ec2-arm64
-        uses: truemark/aws-ec2-run-instance-action@647a0f06110c23a2b6fe22be4e7a8d916643dcbd
+        uses: truemark/aws-ec2-run-instance-action@9a769b48e72be5066c1cbbdefd48cf1e0c2b0c0a
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
@@ -47,7 +47,7 @@ jobs:
             echo "${{ env.ssh_public_key }}" >> /home/ec2-user/.ssh/authorized_keys
       - name: Setup amd64 instance
         id: ec2-amd64
-        uses: truemark/aws-ec2-run-instance-action@647a0f06110c23a2b6fe22be4e7a8d916643dcbd
+        uses: truemark/aws-ec2-run-instance-action@9a769b48e72be5066c1cbbdefd48cf1e0c2b0c0a
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
@@ -117,7 +117,6 @@ jobs:
             --push \
             --platform linux/arm64,linux/amd64 \
             -f amazonlinux.Dockerfile \
-            -t truemark/aws-cdk:beta-amazonlinux-${{github.run_number}} \
             -t truemark/aws-cdk:beta-amazonlinux \
             -t truemark/aws-cdk:beta \
             .
@@ -125,16 +124,39 @@ jobs:
             --push \
             --platform linux/arm64,linux/amd64 \
             -f alpine.Dockerfile \
-            -t truemark/aws-cdk:beta-alpine-${{github.run_number}} \
             -t truemark/aws-cdk:beta-alpine \
             .
           docker buildx build \
             --push \
             --platform linux/arm64,linux/amd64 \
             -f ubuntu.Dockerfile \
-            -t truemark/aws-cdk:beta-ubuntu-${{github.run_number}} \
             -t truemark/aws-cdk:beta-ubuntu \
             .
+      - name: Copy to ECR
+        run: |
+          apt-get update
+          apt-get install skopeo -y
+          export ECR_PASSWORD=$(aws ecr-public get-login-password --region us-east-1)
+          skopeo --insecure-policy \
+            copy docker://truemark/aws-cdk:beta \
+            docker://public.ecr.aws/truemark/aws-cdk:beta \
+            --multi-arch all \
+            --dest-username AWS --dest-password $ECR_PASSWORD
+          skopeo --insecure-policy \
+            copy docker://truemark/aws-cdk:beta-amazonlinux \
+            docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux \
+            --multi-arch all \
+            --dest-username AWS --dest-password $ECR_PASSWORD
+          skopeo --insecure-policy \
+            copy docker://truemark/aws-cdk:beta-alpine \
+            docker://public.ecr.aws/truemark/aws-cdk:beta-alpine \
+            --multi-arch all \
+            --dest-username AWS --dest-password $ECR_PASSWORD
+          skopeo --insecure-policy \
+            copy docker://truemark/aws-cdk:beta-ubuntu \
+            docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu \
+            --multi-arch all \
+            --dest-username AWS --dest-password $ECR_PASSWORD
       - name: Terminate instances
         id: ec2-terminate
         uses: truemark/aws-ec2-instance-state-action@v1
