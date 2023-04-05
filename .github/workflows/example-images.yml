@@ -107,9 +107,9 @@ jobs:
         with:
           driver: docker-container
           append: |
-            - endpoint: ssh://${{ steps.ec2-describe-arm64.outputs.public-dns-name }}
+            - endpoint: ssh://ec2-user@${{ steps.ec2-describe-arm64.outputs.public-dns-name }}
               platform: linux/arm64
-            - endpoint: ssh://${{ steps.ec2-describe-amd64.outputs.public-dns-name }}
+            - endpoint: ssh://ec2-user@${{ steps.ec2-describe-amd64.outputs.public-dns-name }}
               platform: linux/amd64
       - name: Build
         run: |
