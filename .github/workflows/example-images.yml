@@ -111,7 +111,7 @@ jobs:
               platform: linux/arm64
             - endpoint: ssh://ec2-user@${{ steps.ec2-describe-amd64.outputs.public-dns-name }}
               platform: linux/amd64
-      - name: Build
+      - name: Build images
         run: |
           docker buildx build \
             --push \
@@ -121,6 +121,20 @@ jobs:
             -t truemark/aws-cdk:beta-amazonlinux \
             -t truemark/aws-cdk:beta \
             .
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f alpine.Dockerfile \
+            -t truemark/aws-cdk:beta-alpine-${{github.run_number}} \
+            -t truemark/aws-cdk:beta-alpine \
+            .
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f ubuntu.Dockerfile \
+            -t truemark/aws-cdk:beta-ubuntu-${{github.run_number}} \
+            -t truemark/aws-cdk:beta-ubuntu \
+            .
       - name: Terminate instances
         id: ec2-terminate
         uses: truemark/aws-ec2-instance-state-action@v1
@@ -129,22 +143,3 @@ jobs:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }},${{ steps.ec2-amd64.outputs.instance-id }}
           action: "terminate"
           region: "us-east-2"
-
-#      - name: Set up QEMU
-#        uses: docker/setup-qemu-action@v2
-#        with:
-#          platforms: all
-#          docker buildx build \
-#            --push \
-#            --platform linux/arm64,linux/amd64 \
-#            -f alpine.Dockerfile \
-#            -t truemark/aws-cdk:beta-alpine-${{github.run_number}} \
-#            -t truemark/aws-cdk:beta-alpine \
-#            .
-#          docker buildx build \
-#            --push \
-#            --platform linux/arm64,linux/amd64 \
-#            -f ubuntu.Dockerfile \
-#            -t truemark/aws-cdk:beta-ubuntu-${{github.run_number}} \
-#            -t truemark/aws-cdk:beta-ubuntu \
-#            .
