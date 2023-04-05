@@ -20,7 +20,7 @@ jobs:
           aws-region: "us-east-2"
       - name: Setup ARM64 EC2
         id: ec2-arm64
-        uses: truemark/aws-ec2-run-instance-action@ac6a10c11e1997ed826f5f058be9ad60cace464e
+        uses: truemark/aws-ec2-run-instance-action@4fb24e00aeca339d0adf577ede531b69b710ec71
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
@@ -30,7 +30,7 @@ jobs:
           region: "us-east-2"
       - name: Wait for EC2
         id: ec2-wait
-        uses: truemark/aws-ec2-wait-action@870b81625c8af9957e6d91f5fb7df2114794bbb2
+        uses: truemark/aws-ec2-wait-action@7618439f23881e7feb2b42234f7c4d4b62e7880b
         with:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
           region: "us-east-2"
