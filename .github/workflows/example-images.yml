@@ -41,7 +41,7 @@ jobs:
         if: ${{ always() }}
         with:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
-          action: 'terminate'
+          action: "terminate"
           region: "us-east-2"
 #      - name: Get the output time
 #        run: echo "The time was ${{ steps.hello.outputs.time }}"
