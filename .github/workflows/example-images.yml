@@ -34,7 +34,7 @@ jobs:
         with:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
           region: "us-east-2"
-          timeout-ms: "60000""
+          timeout-ms: "60000"
 
 #      - name: Get the output time
 #        run: echo "The time was ${{ steps.hello.outputs.time }}"
