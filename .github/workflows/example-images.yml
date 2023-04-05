@@ -62,7 +62,7 @@ jobs:
         id: ssh-agent
         run: |
           ssh-agent -a /tmp/ssh-auth.sock
-          echo $SSH_AUTH_SOCKET="/tmp/ssh-auth.sock"
+          export $SSH_AUTH_SOCK="/tmp/ssh-auth.sock"
           ssh-add $HOME/.ssh/id_ed25519
           ssh-keyscan -p 22 ${{ steps.ec2-describe-arm64.outputs.public-dns-name }}
       - name: Echo Test
