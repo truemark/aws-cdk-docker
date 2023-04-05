@@ -32,7 +32,7 @@ jobs:
         id: ec2-wait
         uses: truemark/aws-ec2-wait-action@3d9ec61c0194b308164254d7ee5f6ca750e5bd65
         with:
-          instance-id: ${{ steps.ec2-arm64.outputs.instance-id }}
+          instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
           region: "us-east-2"
 
 #      - name: Get the output time
