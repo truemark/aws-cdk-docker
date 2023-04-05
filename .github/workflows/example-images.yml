@@ -37,7 +37,7 @@ jobs:
           timeout-ms: "600000"
       - name: Describe EC2
         id: ec2-describe-arm64
-        uses: truemark/aws-ec2-describe-instance-action@v1
+        uses: truemark/aws-ec2-describe-instance-action@7ec04192d08652dc9d2f6f6480e266001d30706a
         with:
           instance-id: ${{ steps.ec2-arm64.outputs.instance-id }}
           region: "us-east-2"
