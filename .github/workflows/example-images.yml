@@ -126,7 +126,7 @@ jobs:
         uses: truemark/aws-ec2-instance-state-action@v1
         if: ${{ always() }}
         with:
-          instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }}
+          instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }},${{ steps.ec2-amd64.outputs.instance-id }}
           action: "terminate"
           region: "us-east-2"
 
