@@ -32,8 +32,7 @@ jobs:
           instance-type: "c7g.large"
           instance-profile: "TruemarkEC2RoleforSSM"
           region: "us-east-2"
-          user-data: >
-            #!/bin/bash
+          user-data: |
             yum install docker -y
             usermod -a -G docker ec2-user
             systemctl enable docker.service
