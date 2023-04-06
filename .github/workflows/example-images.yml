@@ -140,12 +140,10 @@ jobs:
       - name: Copy beta to ECR
         uses: docker://quay.io/skopeo/stable:latest
         with:
-          args: |
-            --insecure-policy copy \
-            docker://truemark/aws-cdk:beta \
-            docker://public.ecr.aws/truemark/aws-cdk:beta \
-            --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} \
-            --dest-username AWS --dest-password "${{ env.ecr_password }}" \
+          args: >
+            --insecure-policy copy docker://truemark/aws-cdk:beta docker://public.ecr.aws/truemark/aws-cdk:beta 
+            --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} 
+            --dest-username AWS --dest-password "${{ env.ecr_password }}" 
             --multi-arch all
       - name: Terminate instances
         id: ec2-terminate
