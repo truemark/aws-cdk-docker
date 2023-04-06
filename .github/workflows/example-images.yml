@@ -26,7 +26,7 @@ jobs:
           aws-region: "us-east-2"
       - name: Setup arm64 instance
         id: ec2-arm64
-        uses: truemark/aws-ec2-run-instance-action@1d0646c96607deddd3f4bd211d9058273ed8cf81
+        uses: truemark/aws-ec2-run-instance-action@v2
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
@@ -47,7 +47,7 @@ jobs:
             echo "${{ env.ssh_public_key }}" >> /home/ec2-user/.ssh/authorized_keys
       - name: Setup amd64 instance
         id: ec2-amd64
-        uses: truemark/aws-ec2-run-instance-action@1d0646c96607deddd3f4bd211d9058273ed8cf81
+        uses: truemark/aws-ec2-run-instance-action@v2
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
@@ -75,13 +75,13 @@ jobs:
           timeout-ms: "600000"
       - name: Describe arm64 Instance
         id: ec2-describe-arm64
-        uses: truemark/aws-ec2-describe-instance-action@7ec04192d08652dc9d2f6f6480e266001d30706a
+        uses: truemark/aws-ec2-describe-instance-action@v1
         with:
           instance-id: ${{ steps.ec2-arm64.outputs.instance-id }}
           region: "us-east-2"
       - name: Describe amd64 Instance
         id: ec2-describe-amd64
-        uses: truemark/aws-ec2-describe-instance-action@7ec04192d08652dc9d2f6f6480e266001d30706a
+        uses: truemark/aws-ec2-describe-instance-action@v1
         with:
           instance-id: ${{ steps.ec2-amd64.outputs.instance-id }}
           region: "us-east-2"
