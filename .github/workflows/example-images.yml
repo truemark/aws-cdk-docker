@@ -134,7 +134,7 @@ jobs:
             .
       - name: Get ECR password
         run: |
-          ECR_PASSWORD=$(secret=aws ecr-public get-login-password --region us-east-1)
+          ECR_PASSWORD=$(aws ecr-public get-login-password --region us-east-1)
           echo "::add-mask::$ECR_PASSWORD"
           echo "ecr_password=$ECR_PASSWORD" >> $GITHUB_ENV
       - name: Copy beta to ECR
