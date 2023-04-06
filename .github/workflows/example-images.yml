@@ -68,7 +68,7 @@ jobs:
             echo "${{ env.ssh_public_key }}" >> /home/ec2-user/.ssh/authorized_keys
       - name: Wait for instances
         id: ec2-wait
-        uses: truemark/aws-ec2-instance-wait-action@v1
+        uses: truemark/aws-ec2-instance-wait-action@v2
         with:
           instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }},${{ steps.ec2-amd64.outputs.instance-id }}
           region: "us-east-2"
