@@ -26,7 +26,7 @@ jobs:
           aws-region: "us-east-2"
       - name: Setup arm64 instance
         id: ec2-arm64
-        uses: truemark/aws-ec2-run-instance-action@9a769b48e72be5066c1cbbdefd48cf1e0c2b0c0a
+        uses: truemark/aws-ec2-run-instance-action@626bb9a2a1ae5ee0f54837a859c34d3e401d5658
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
@@ -47,7 +47,7 @@ jobs:
             echo "${{ env.ssh_public_key }}" >> /home/ec2-user/.ssh/authorized_keys
       - name: Setup amd64 instance
         id: ec2-amd64
-        uses: truemark/aws-ec2-run-instance-action@9a769b48e72be5066c1cbbdefd48cf1e0c2b0c0a
+        uses: truemark/aws-ec2-run-instance-action@626bb9a2a1ae5ee0f54837a859c34d3e401d5658
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
@@ -177,11 +177,11 @@ jobs:
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} 
             --dest-username AWS --dest-password "${{ env.ecr_password }}"
             --multi-arch all
-      - name: Terminate instances
-        id: ec2-terminate
-        uses: truemark/aws-ec2-instance-state-action@v1
-        if: ${{ always() }}
-        with:
-          instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }},${{ steps.ec2-amd64.outputs.instance-id }}
-          action: "terminate"
-          region: "us-east-2"
+#      - name: Terminate instances
+#        id: ec2-terminate
+#        uses: truemark/aws-ec2-instance-state-action@v1
+#        if: ${{ always() }}
+#        with:
+#          instance-ids: ${{ steps.ec2-arm64.outputs.instance-id }},${{ steps.ec2-amd64.outputs.instance-id }}
+#          action: "terminate"
+#          region: "us-east-2"
