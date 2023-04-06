@@ -26,7 +26,7 @@ jobs:
           aws-region: "us-east-2"
       - name: Setup arm64 instance
         id: ec2-arm64
-        uses: truemark/aws-ec2-run-instance-action@626bb9a2a1ae5ee0f54837a859c34d3e401d5658
+        uses: truemark/aws-ec2-run-instance-action@a0dc229bda06dcd479c676f4d7b1a04f1878e1d6
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
@@ -47,7 +47,7 @@ jobs:
             echo "${{ env.ssh_public_key }}" >> /home/ec2-user/.ssh/authorized_keys
       - name: Setup amd64 instance
         id: ec2-amd64
-        uses: truemark/aws-ec2-run-instance-action@626bb9a2a1ae5ee0f54837a859c34d3e401d5658
+        uses: truemark/aws-ec2-run-instance-action@a0dc229bda06dcd479c676f4d7b1a04f1878e1d6
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
