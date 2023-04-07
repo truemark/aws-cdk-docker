@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Generate SSH Key
         id: ssh-key
-        uses: truemark/generate-ssh-key-action@9cc36032c5ecbe7a50fc98201a3d6afe2266bad7
+        uses: truemark/generate-ssh-key-action@804d9e7444f719e05c02f54d387746c02e770311
       - name: Generate Temporary SSH Keys
         run: |
           mkdir $HOME/.ssh
