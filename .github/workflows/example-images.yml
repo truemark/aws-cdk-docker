@@ -84,12 +84,13 @@ jobs:
           region: "us-east-2"
       - name: SSH Known Hosts
         id: ssh-known-hosts
-        uses: truemark/ssh-known-hosts-action@dabad052bc32e3d61ac4caa741f916d27ea405a9
+        uses: truemark/ssh-known-hosts-action@526bf6231a57ffae1ac74ac33c8e8e01d36e62dc
         with:
           scan-hosts: ${{ steps.ec2-describe-arm64.outputs.public-dns-name }},${{ steps.ec2-describe-amd64.outputs.public-dns-name }}
       - name: Setup SSH Agent & Known Hosts
         id: ssh-agent
         run: |
+          cat ~/.ssh/known_hosts
           ssh-agent -a /tmp/ssh-auth.sock
           export SSH_AUTH_SOCK="/tmp/ssh-auth.sock"
           ssh-add "${{ steps.ssh-key.outputs.private-key-path }}"
