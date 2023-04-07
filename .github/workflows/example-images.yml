@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Generate SSH Key
         id: ssh-key
-        uses: truemark/generate-ssh-key-action@7e50cf64b139273e73c37d92ddd71d489b49c3d0
+        uses: truemark/generate-ssh-key-action@80cf3bec7684d8eaae56f2a38b7c16ac51a6bc95
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
