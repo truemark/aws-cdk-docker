@@ -16,12 +16,6 @@ jobs:
       - name: Generate SSH Key
         id: ssh-key
         uses: truemark/generate-ssh-key-action@61222bc38ef3990cc36f57f7835edb3328586cc4
-      - name: Generate Temporary SSH Keys
-        run: |
-          mkdir $HOME/.ssh
-          chmod 700 $HOME/.ssh
-          ssh-keygen -t ed25519 -f $HOME/.ssh/id_ed25519 -q -N ''
-          echo "ssh_public_key=$(cat $HOME/.ssh/id_ed25519.pub)" >> $GITHUB_ENV
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
