@@ -89,7 +89,7 @@ jobs:
           scan-hosts: ${{ steps.ec2-describe-arm64.outputs.public-dns-name }},${{ steps.ec2-describe-amd64.outputs.public-dns-name }}
       - name: SSH Agent
         id: ssh-agent
-        uses: truemark/ssh-agent-action@b73bc60f689dc1387bec8b3bd8e0c950312b1107
+        uses: truemark/ssh-agent-action@v1
         with:
           private-key-path: ${{ steps.ssh-key.outputs.private-key-path }}
       - name: Login to Docker Hub
