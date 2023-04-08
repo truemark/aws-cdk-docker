@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Setup Buildx Remote Docker
         id: buildx
-        uses: truemark/aws-buildx-remote-docker-instance-action@9e0eec06dd97dd08eba0629c37dfd5df11b87bde
+        uses: truemark/aws-buildx-remote-docker-instance-action@7737ff9f8221ceac0a90730f40daec2e572c5f5b
         with:
           security-group-id: "sg-0baf5bcfe9f21efa5"
           subnet-id: "subnet-09a35a2abd797dbf9"
