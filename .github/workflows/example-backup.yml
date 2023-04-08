@@ -1,4 +1,4 @@
-name: example
+name: example-backup
 
 on:
   workflow_dispatch:
