@@ -60,8 +60,8 @@ jobs:
       - name: Copy beta to ECR
         uses: truemark/skopeo-copy-action@616e8dff7e3d6792ea4ba033d49ab8fb1066c79a
         with:
-          src-image: "truemark/aws-cdk:beta"
-          dest-image: "public.ecr.aws/truemark/aws-cdk:beta"
+          src-image: "docker://truemark/aws-cdk:beta"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
           dest-username: "${{ steps.ecr-login.outputs.dockerUsername }}"
@@ -70,8 +70,8 @@ jobs:
       - name: Copy beta-amazonlinux to ECR
         uses: truemark/skopeo-copy-action@616e8dff7e3d6792ea4ba033d49ab8fb1066c79a
         with:
-          src-image: "truemark/aws-cdk:beta-amazonlinux"
-          dest-image: "public.ecr.aws/truemark/aws-cdk:beta-amazonlinux"
+          src-image: "docker://truemark/aws-cdk:beta-amazonlinux"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
           dest-username: "${{ steps.ecr-login.outputs.dockerUsername }}"
@@ -80,8 +80,8 @@ jobs:
       - name: Copy beta-alpine to ECR
         uses: truemark/skopeo-copy-action@616e8dff7e3d6792ea4ba033d49ab8fb1066c79a
         with:
-            src-image: "truemark/aws-cdk:beta-alpine"
-            dest-image: "public.ecr.aws/truemark/aws-cdk:beta-alpine"
+            src-image: "docker://truemark/aws-cdk:beta-alpine"
+            dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine"
             src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
             src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
             dest-username: "${{ steps.ecr-login.outputs.dockerUsername }}"
@@ -90,8 +90,8 @@ jobs:
       - name: Copy beta-ubuntu to ECR
         uses: truemark/skopeo-copy-action@616e8dff7e3d6792ea4ba033d49ab8fb1066c79a
         with:
-            src-image: "truemark/aws-cdk:beta-ubuntu"
-            dest-image: "public.ecr.aws/truemark/aws-cdk:beta-ubuntu"
+            src-image: "docker://truemark/aws-cdk:beta-ubuntu"
+            dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu"
             src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
             src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
             dest-username: "${{ steps.ecr-login.outputs.dockerUsername }}"
