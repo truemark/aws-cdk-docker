@@ -58,42 +58,42 @@ jobs:
             -t truemark/aws-cdk:beta-ubuntu \
             .
       - name: Copy beta to ECR
-        uses: truemark/skopeo-copy-action@a795a2832fd0b4c296222886907ed908bc6b0c24
+        uses: truemark/skopeo-copy-action@c531b66cab7d721790a9c832da4775459cdb1777
         with:
           src-image: "docker://truemark/aws-cdk:beta"
           dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.dockerUsername }}"
-          dest-password: "${{ steps.ecr-login.outputs.dockerPassword }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
           multi-arch: "all"
       - name: Copy beta-amazonlinux to ECR
-        uses: truemark/skopeo-copy-action@a795a2832fd0b4c296222886907ed908bc6b0c24
+        uses: truemark/skopeo-copy-action@c531b66cab7d721790a9c832da4775459cdb1777
         with:
           src-image: "docker://truemark/aws-cdk:beta-amazonlinux"
           dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.dockerUsername }}"
-          dest-password: "${{ steps.ecr-login.outputs.dockerPassword }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
           multi-arch: "all"
       - name: Copy beta-alpine to ECR
-        uses: truemark/skopeo-copy-action@a795a2832fd0b4c296222886907ed908bc6b0c24
+        uses: truemark/skopeo-copy-action@c531b66cab7d721790a9c832da4775459cdb1777
         with:
             src-image: "docker://truemark/aws-cdk:beta-alpine"
             dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine"
             src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
             src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-            dest-username: "${{ steps.ecr-login.outputs.dockerUsername }}"
-            dest-password: "${{ steps.ecr-login.outputs.dockerPassword }}"
+            dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+            dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
             multi-arch: "all"
       - name: Copy beta-ubuntu to ECR
-        uses: truemark/skopeo-copy-action@a795a2832fd0b4c296222886907ed908bc6b0c24
+        uses: truemark/skopeo-copy-action@c531b66cab7d721790a9c832da4775459cdb1777
         with:
             src-image: "docker://truemark/aws-cdk:beta-ubuntu"
             dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu"
             src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
             src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-            dest-username: "${{ steps.ecr-login.outputs.dockerUsername }}"
-            dest-password: "${{ steps.ecr-login.outputs.dockerPassword }}"
+            dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+            dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
             multi-arch: "all"
