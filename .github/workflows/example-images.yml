@@ -65,7 +65,7 @@ jobs:
             docker://truemark/aws-cdk:beta 
             docker://public.ecr.aws/truemark/aws-cdk:beta
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-            --dest-username ${{ steps.ecr-login.outputs.dockerUsername --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
+            --dest-username ${{ steps.ecr-login.outputs.dockerUsername }} --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
             --multi-arch all
       - name: Copy beta-amazonlinux to ECR
         uses: docker://quay.io/skopeo/stable:latest
@@ -75,7 +75,7 @@ jobs:
             docker://truemark/aws-cdk:beta-amazonlinux 
             docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-            --dest-username ${{ steps.ecr-login.outputs.dockerUsername --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
+            --dest-username ${{ steps.ecr-login.outputs.dockerUsername }} --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
             --multi-arch all
       - name: Copy beta-alpine to ECR
         uses: docker://quay.io/skopeo/stable:latest
@@ -85,7 +85,7 @@ jobs:
             docker://truemark/aws-cdk:beta-alpine 
             docker://public.ecr.aws/truemark/aws-cdk:beta-alpine
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-            --dest-username ${{ steps.ecr-login.outputs.dockerUsername --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
+            --dest-username ${{ steps.ecr-login.outputs.dockerUsername }} --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
             --multi-arch all
       - name: Copy beta-ubuntu to ECR
         uses: docker://quay.io/skopeo/stable:latest
@@ -95,5 +95,5 @@ jobs:
             docker://truemark/aws-cdk:beta-ubuntu 
             docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-            --dest-username ${{ steps.ecr-login.outputs.dockerUsername --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
+            --dest-username ${{ steps.ecr-login.outputs.dockerUsername }} --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
             --multi-arch all
