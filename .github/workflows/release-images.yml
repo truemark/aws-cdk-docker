@@ -9,6 +9,10 @@ on:
     # Run at 4PM UTC every Monday
     - cron: '0 16 * * 1'
 
+# https://github.com/gautamkrishnar/keepalive-workflow/discussions/13
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
