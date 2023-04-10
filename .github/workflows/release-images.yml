@@ -120,8 +120,8 @@ jobs:
       - name: Copy ubuntu to ECR
         uses: truemark/skopeo-copy-action@v1
         with:
-          src-image: "docker://truemark/aws-cdk:alpine"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:alpine"
+          src-image: "docker://truemark/aws-cdk:ubuntu"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:ubuntu"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
