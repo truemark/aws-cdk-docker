@@ -35,7 +35,7 @@ jobs:
         id: buildx
         uses: truemark/aws-buildx-remote-docker-instance-action@v2
         with:
-          security-group-id: "${{ vars.SECURITY_GROUP }}"
+          security-group-id: "${{ vars.SECURITY_GROUP_ID }}"
           subnet-id: "${{ vars.SUBNET_ID }}"
           instance-profile: "${{ vars.INSTANCE_PROFILE }}"
           region: "us-east-2"
