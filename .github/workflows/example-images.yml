@@ -61,6 +61,7 @@ jobs:
         uses: docker://quay.io/skopeo/stable:latest
         with:
           args: >
+            copy
             docker://truemark/aws-cdk:beta 
             docker://public.ecr.aws/truemark/aws-cdk:beta
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
@@ -70,6 +71,7 @@ jobs:
         uses: docker://quay.io/skopeo/stable:latest
         with:
           args: >
+            copy
             docker://truemark/aws-cdk:beta-amazonlinux 
             docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
@@ -79,6 +81,7 @@ jobs:
         uses: docker://quay.io/skopeo/stable:latest
         with:
           args: >
+            copy
             docker://truemark/aws-cdk:beta-alpine 
             docker://public.ecr.aws/truemark/aws-cdk:beta-alpine
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
@@ -88,6 +91,7 @@ jobs:
         uses: docker://quay.io/skopeo/stable:latest
         with:
           args: >
+            copy
             docker://truemark/aws-cdk:beta-ubuntu 
             docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
