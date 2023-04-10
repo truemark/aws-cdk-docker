@@ -33,7 +33,7 @@ jobs:
           registry-type: public
       - name: Setup Buildx Remote Docker
         id: buildx
-        uses: truemark/aws-buildx-remote-docker-instance-action@v1
+        uses: truemark/aws-buildx-remote-docker-instance-action@v2
         with:
           security-group-id: "${{ vars.SECURITY_GROUP }}"
           subnet-id: "${{ vars.SUBNET_ID }}"
