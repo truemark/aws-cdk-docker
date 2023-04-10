@@ -17,12 +17,17 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: "${{ secrets.AWS_ASSUME_ROLE }}"
-          aws-region: "us-east-2"
+          aws-region: "us-east-1"
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Login to ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry-type: public
       - name: Setup Buildx Remote Docker
         id: buildx
         uses: truemark/aws-buildx-remote-docker-instance-action@v1
@@ -52,11 +57,6 @@ jobs:
             -f ubuntu.Dockerfile \
             -t truemark/aws-cdk:beta-ubuntu \
             .
-      - name: Get ECR password
-        run: |
-          ECR_PASSWORD=$(aws ecr-public get-login-password --region us-east-1)
-          echo "::add-mask::$ECR_PASSWORD"
-          echo "ecr_password=$ECR_PASSWORD" >> $GITHUB_ENV
       - name: Copy beta to ECR
         uses: docker://quay.io/skopeo/stable:latest
         with:
@@ -65,7 +65,7 @@ jobs:
             docker://truemark/aws-cdk:beta 
             docker://public.ecr.aws/truemark/aws-cdk:beta
             --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-            --dest-username AWS --dest-password "${{ env.ecr_password }}"
+            --dest-username ${{ steps.ecr-login.outputs.dockerUsername --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
             --multi-arch all
       - name: Copy beta-amazonlinux to ECR
         uses: docker://quay.io/skopeo/stable:latest
@@ -74,8 +74,8 @@ jobs:
             --insecure-policy copy 
             docker://truemark/aws-cdk:beta-amazonlinux 
             docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux
-            --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} 
-            --dest-username AWS --dest-password "${{ env.ecr_password }}"
+            --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+            --dest-username ${{ steps.ecr-login.outputs.dockerUsername --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
             --multi-arch all
       - name: Copy beta-alpine to ECR
         uses: docker://quay.io/skopeo/stable:latest
@@ -84,8 +84,8 @@ jobs:
             --insecure-policy copy 
             docker://truemark/aws-cdk:beta-alpine 
             docker://public.ecr.aws/truemark/aws-cdk:beta-alpine
-            --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} 
-            --dest-username AWS --dest-password "${{ env.ecr_password }}"
+            --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+            --dest-username ${{ steps.ecr-login.outputs.dockerUsername --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
             --multi-arch all
       - name: Copy beta-ubuntu to ECR
         uses: docker://quay.io/skopeo/stable:latest
@@ -94,6 +94,6 @@ jobs:
             --insecure-policy copy 
             docker://truemark/aws-cdk:beta-ubuntu 
             docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu
-            --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} 
-            --dest-username AWS --dest-password "${{ env.ecr_password }}"
+            --src-username ${{ secrets.DOCKER_HUB_USERNAME }} --src-password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+            --dest-username ${{ steps.ecr-login.outputs.dockerUsername --dest-password "${{ steps.ecr-login.outputs.dockerPassword }}"
             --multi-arch all
