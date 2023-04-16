@@ -6,8 +6,12 @@
 
 set -euo pipefail
 
-docker buildx build \
-  --builder beta \
-  --push \
-  --platform linux/arm64,linux/amd64 \
-  -t truemark/aws-cdk:beta .
+#docker buildx build \
+#  --builder beta \
+#  --push \
+#  --platform linux/arm64,linux/amd64 \
+#  -t truemark/aws-cdk:beta .
+
+#docker build -t moo -f alpine.Dockerfile --target dotnet6 .
+#docker build -t moo -f ubuntu.Dockerfile --target dotnet6 .
+docker build -t moo -f amazonlinux.Dockerfile --target dotnet6 .
