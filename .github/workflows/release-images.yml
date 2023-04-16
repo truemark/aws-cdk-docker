@@ -95,7 +95,7 @@ jobs:
             -t truemark/aws-cdk:latest \
             --target dotnet6 \
             .
-      - name: Copy amazonlinux-dotnet6-${{github.run_number} to ECR
+      - name: Copy amazonlinux-dotnet6-${{github.run_number}} to ECR
         uses: truemark/skopeo-copy-action@v1
         with:
           src-image: "docker://truemark/aws-cdk:amazonlinux-dotnet6-${{github.run_number}"
