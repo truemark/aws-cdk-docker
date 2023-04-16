@@ -6,8 +6,8 @@ on:
     branches:
       - main
   schedule:
-    # Run at 4PM UTC every Monday
-    - cron: '0 16 * * 1'
+    # Run at 6PM UTC every Monday which is 2 hours after the truemark/aws-cli build
+    - cron: '0 18 * * 1'
 
 # https://github.com/gautamkrishnar/keepalive-workflow/discussions/13
 permissions:
