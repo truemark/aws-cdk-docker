@@ -37,13 +37,13 @@ jobs:
           registry-type: public
       - name: Setup Buildx Remote Docker
         id: buildx
-        uses: truemark/aws-buildx-remote-docker-instance-action@v2
+        uses: truemark/aws-buildx-remote-docker-instance-action@v4
         with:
           security-group-id: "${{ vars.SECURITY_GROUP_ID }}"
           subnet-id: "${{ vars.SUBNET_ID }}"
           instance-profile: "${{ vars.INSTANCE_PROFILE }}"
           region: "us-east-2"
-      - name: Build
+      - name: Build Amazon Linux
         run: |
           docker buildx build \
             --push \
@@ -53,25 +53,11 @@ jobs:
             -t truemark/aws-cdk:amazonlinux \
             -t truemark/aws-cdk:latest \
             .
-          docker buildx build \
-            --push \
-            --platform linux/arm64,linux/amd64 \
-            -f alpine.Dockerfile \
-            -t truemark/aws-cdk:alpine-${{github.run_number}} \
-            -t truemark/aws-cdk:alpine \
-            .
-          docker buildx build \
-            --push \
-            --platform linux/arm64,linux/amd64 \
-            -f ubuntu.Dockerfile \
-            -t truemark/aws-cdk:ubuntu-${{github.run_number}} \
-            -t truemark/aws-cdk:ubuntu \
-            .
-      - name: Copy latest to ECR
+      - name: Copy amazonlinux-${{github.run_number}} to ECR
         uses: truemark/skopeo-copy-action@v1
         with:
-          src-image: "docker://truemark/aws-cdk:latest"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:latest"
+          src-image: "docker://truemark/aws-cdk:amazonlinux-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:amazonlinux-${{github.run_number}}"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
@@ -87,11 +73,30 @@ jobs:
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
           dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
           multi-arch: "all"
-      - name: Copy amazonlinux run to ECR
+      - name: Copy beta to ECR
         uses: truemark/skopeo-copy-action@v1
         with:
-          src-image: "docker://truemark/aws-cdk:amazonlinux-${{github.run_number}}"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:amazonlinux-${{github.run_number}}"
+          src-image: "docker://truemark/aws-cdk:beta"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Build Alpine
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f alpine.Dockerfile \
+            -t truemark/aws-cdk:alpine-${{github.run_number}} \
+            -t truemark/aws-cdk:alpine \
+            .
+      - name: Copy alpine-${{github.run_number}} to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:alpine-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:alpine-${{github.run_number}}"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
@@ -107,11 +112,20 @@ jobs:
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
           dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
           multi-arch: "all"
-      - name: Copy alpine run to ECR
+      - name: Build Ubuntu
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f ubuntu.Dockerfile \
+            -t truemark/aws-cdk:ubuntu-${{github.run_number}} \
+            -t truemark/aws-cdk:ubuntu \
+            .
+      - name: Copy ubuntu-${{github.run_number}} to ECR
         uses: truemark/skopeo-copy-action@v1
         with:
-          src-image: "docker://truemark/aws-cdk:alpine-${{github.run_number}}"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:alpine-${{github.run_number}}"
+          src-image: "docker://truemark/aws-cdk:ubuntu-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:ubuntu-${{github.run_number}}"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
@@ -122,16 +136,6 @@ jobs:
         with:
           src-image: "docker://truemark/aws-cdk:ubuntu"
           dest-image: "docker://public.ecr.aws/truemark/aws-cdk:ubuntu"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
-      - name: Copy ubuntu run to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:ubuntu-${{github.run_number}}"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:ubuntu-${{github.run_number}}"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
