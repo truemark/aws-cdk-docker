@@ -13,7 +13,7 @@ RUN apk add --no-cache curl && \
 ENV DOTNET_ROOT="/root/.dotnet"
 ENV PATH="/root/.dotnet:${PATH}"
 
-FROM base AS dotnet6
+FROM base AS dotnet7
 RUN apk add --no-cache curl && \
     curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 7.0 && \
     ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet
