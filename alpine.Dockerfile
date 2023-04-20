@@ -9,13 +9,15 @@ RUN apk add libstdc++ --no-cache && \
 FROM base AS dotnet6
 RUN apk add --no-cache curl && \
     curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 6.0 && \
-    ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet
+    ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet && \
+    dotnet tool install -g Amazon.Lambda.Tools
 ENV DOTNET_ROOT="/root/.dotnet"
 ENV PATH="/root/.dotnet:${PATH}"
 
 FROM base AS dotnet7
 RUN apk add --no-cache curl && \
     curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 7.0 && \
-    ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet
+    ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet && \
+    dotnet tool install -g Amazon.Lambda.Tools
 ENV DOTNET_ROOT="/root/.dotnet"
 ENV PATH="/root/.dotnet:${PATH}"
