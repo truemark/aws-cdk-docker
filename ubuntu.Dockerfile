@@ -7,7 +7,7 @@ RUN npm install -g typescript aws-cdk pnpm yarn esbuild && \
 
 FROM base AS dotnet6
 RUN apt-get update && \
-    apt-get install -y curl libicu --no-install-recommends && \
+    apt-get install -y curl ca-certificates libicu70 --no-install-recommends && \
     curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 6.0 && \
     ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet && \
     apt-get clean && \
@@ -17,7 +17,7 @@ ENV PATH="/root/.dotnet:${PATH}"
 
 FROM base AS dotnet7
 RUN apt-get update && \
-    apt-get install -y curl libicu --no-install-recommends && \
+    apt-get install -y curl ca-certificates libicu70 --no-install-recommends && \
     curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 7.0 && \
     ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet && \
     apt-get clean && \
