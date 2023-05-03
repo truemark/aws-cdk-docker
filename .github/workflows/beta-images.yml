@@ -39,6 +39,9 @@ jobs:
           subnet-id: "${{ vars.SUBNET_ID }}"
           instance-profile: "${{ vars.INSTANCE_PROFILE }}"
           region: "us-east-2"
+      ###############################################################################
+      # Amazon Linux
+      ###############################################################################
       - name: Build Amazon Linux
         run: |
           docker buildx build \
@@ -80,9 +83,6 @@ jobs:
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
           dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
           multi-arch: "all"
-###############################################################################
-# DOTNET 6
-###############################################################################
       - name: Build Amazon Linux Dotnet 6
         run: |
           docker buildx build \
@@ -124,6 +124,91 @@ jobs:
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
           dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
           multi-arch: "all"
+      - name: Build Amazon Linux Dotnet 7
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f amazonlinux.Dockerfile \
+            -t truemark/aws-cdk:beta-amazonlinux-dotnet7-${{github.run_number}} \
+            -t truemark/aws-cdk:beta-amazonlinux-dotnet7 \
+            -t truemark/aws-cdk:beta-dotnet7 \
+            --target dotnet7 \
+            .
+      - name: Copy beta-amazonlinux-dotnet7-${{github.run_number}} to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-amazonlinux-dotnet7-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux-dotnet7-${{github.run_number}}"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Copy beta-amazonlinux-dotnet7 to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-amazonlinux-dotnet7"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux-dotnet7"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Copy beta-dotnet7 to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-dotnet7"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-dotnet7"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Build Amazon Linux Go
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f amazonlinux.Dockerfile \
+            -t truemark/aws-cdk:beta-amazonlinux-go-${{github.run_number}} \
+            -t truemark/aws-cdk:beta-amazonlinux-go \
+            -t truemark/aws-cdk:beta-go \
+            --target go \
+            .
+      - name: Copy beta-amazonlinux-go-${{github.run_number}} to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-amazonlinux-go-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux-go-${{github.run_number}}"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Copy beta-amazonlinux-go to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-amazonlinux-go"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux-go"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Copy beta-go to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-go"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-go"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      ###############################################################################
+      # Alpine Linux
+      ###############################################################################
       - name: Build Alpine
         run: |
           docker buildx build \
@@ -184,6 +269,69 @@ jobs:
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
           dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
           multi-arch: "all"
+      - name: Build Alpine Dotnet 7
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f alpine.Dockerfile \
+            -t truemark/aws-cdk:beta-alpine-dotnet7-${{github.run_number}} \
+            -t truemark/aws-cdk:beta-alpine-dotnet7 \
+            --target dotnet7 \
+            .
+      - name: Copy beta-alpine-dotnet7-${{github.run_number}} to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-alpine-dotnet7-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine-dotnet7-${{github.run_number}}"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Copy beta-alpine-dotnet7 to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-alpine-dotnet7"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine-dotnet7"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Build Alpine Go
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f alpine.Dockerfile \
+            -t truemark/aws-cdk:beta-alpine-go-${{github.run_number}} \
+            -t truemark/aws-cdk:beta-alpine-go \
+            --target go \
+            .
+      - name: Copy beta-alpine-go-${{github.run_number}} to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-alpine-go-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine-go-${{github.run_number}}"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Copy beta-alpine-go to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-alpine-go"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine-go"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      ###############################################################################
+      # Ubuntu Linux
+      ###############################################################################
       - name: Build Ubuntu
         run: |
           docker buildx build \
@@ -244,140 +392,6 @@ jobs:
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
           dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
           multi-arch: "all"
-###############################################################################
-# DOTNET 7
-###############################################################################
-      - name: Build Amazon Linux Dotnet 7
-        run: |
-          docker buildx build \
-            --push \
-            --platform linux/arm64,linux/amd64 \
-            -f amazonlinux.Dockerfile \
-            -t truemark/aws-cdk:beta-amazonlinux-dotnet7-${{github.run_number}} \
-            -t truemark/aws-cdk:beta-amazonlinux-dotnet7 \
-            -t truemark/aws-cdk:beta-dotnet7 \
-            --target dotnet7 \
-            .
-      - name: Copy beta-amazonlinux-dotnet7-${{github.run_number}} to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:beta-amazonlinux-dotnet7-${{github.run_number}}"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux-dotnet7-${{github.run_number}}"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
-      - name: Copy beta-amazonlinux-dotnet7 to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:beta-amazonlinux-dotnet7"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-amazonlinux-dotnet7"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
-      - name: Copy beta-dotnet7 to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:beta-dotnet7"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-dotnet7"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
-      - name: Build Alpine
-        run: |
-          docker buildx build \
-            --push \
-            --platform linux/arm64,linux/amd64 \
-            -f alpine.Dockerfile \
-            -t truemark/aws-cdk:beta-alpine-${{github.run_number}} \
-            -t truemark/aws-cdk:beta-alpine \
-            --target base \
-            .
-      - name: Copy beta-alpine-${{github.run_number}} to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:beta-alpine-${{github.run_number}}"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine-${{github.run_number}}"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
-      - name: Copy beta-alpine to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:beta-alpine"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
-      - name: Build Alpine Dotnet 7
-        run: |
-          docker buildx build \
-            --push \
-            --platform linux/arm64,linux/amd64 \
-            -f alpine.Dockerfile \
-            -t truemark/aws-cdk:beta-alpine-dotnet7-${{github.run_number}} \
-            -t truemark/aws-cdk:beta-alpine-dotnet7 \
-            --target dotnet7 \
-            .
-      - name: Copy beta-alpine-dotnet7-${{github.run_number}} to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:beta-alpine-dotnet7-${{github.run_number}}"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine-dotnet7-${{github.run_number}}"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
-      - name: Copy beta-alpine-dotnet7 to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:beta-alpine-dotnet7"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-alpine-dotnet7"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
-      - name: Build Ubuntu
-        run: |
-          docker buildx build \
-            --push \
-            --platform linux/arm64,linux/amd64 \
-            -f ubuntu.Dockerfile \
-            -t truemark/aws-cdk:beta-ubuntu-${{github.run_number}} \
-            -t truemark/aws-cdk:beta-ubuntu \
-            --target base \
-            .
-      - name: Copy beta-ubuntu-${{github.run_number}} to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:beta-ubuntu-${{github.run_number}}"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu-${{github.run_number}}"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
-      - name: Copy beta-ubuntu to ECR
-        uses: truemark/skopeo-copy-action@v1
-        with:
-          src-image: "docker://truemark/aws-cdk:beta-ubuntu"
-          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu"
-          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
-          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
-          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
-          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: "all"
       - name: Build Ubuntu Dotnet 7
         run: |
           docker buildx build \
@@ -403,6 +417,36 @@ jobs:
         with:
           src-image: "docker://truemark/aws-cdk:beta-ubuntu-dotnet7"
           dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu-dotnet7"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Build Ubuntu Go
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f ubuntu.Dockerfile \
+            -t truemark/aws-cdk:beta-ubuntu-go-${{github.run_number}} \
+            -t truemark/aws-cdk:beta-ubuntu-go \
+            --target go \
+            .
+      - name: Copy beta-ubuntu-go-${{github.run_number}} to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-ubuntu-go-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu-go-${{github.run_number}}"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Copy beta-ubuntu-go to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-ubuntu-go"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu-go"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
