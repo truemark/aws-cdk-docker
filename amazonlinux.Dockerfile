@@ -7,7 +7,7 @@ RUN npm install -g typescript aws-cdk pnpm yarn esbuild && \
 
 FROM base AS dotnet6
 RUN yum install -y libicu && \
-    curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 6.0 && \
+    curl -fsSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 6.0 && \
     ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet && \
     yum clean all && \
     dotnet tool install -g Amazon.Lambda.Tools
@@ -16,7 +16,7 @@ ENV PATH="/root/.dotnet:${PATH}"
 
 FROM base AS dotnet7
 RUN yum install -y libicu && \
-    curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 7.0 && \
+    curl -fsSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 7.0 && \
     ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet && \
     yum clean all && \
     dotnet tool install -g Amazon.Lambda.Tools
