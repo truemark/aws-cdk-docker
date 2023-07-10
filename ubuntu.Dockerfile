@@ -15,6 +15,11 @@ RUN apt-get update && \
 ENV DOTNET_ROOT="/root/.dotnet"
 ENV PATH="/root/.dotnet:${PATH}"
 
+FROM dotnet6 AS dotnet6-jre-17
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jre-headless --no-install-recommends && \
+    apt-get clean
+
 FROM base AS dotnet7
 RUN apt-get update && \
     apt-get install -y libicu70 --no-install-recommends && \
@@ -24,6 +29,11 @@ RUN apt-get update && \
     dotnet tool install -g Amazon.Lambda.Tools
 ENV DOTNET_ROOT="/root/.dotnet"
 ENV PATH="/root/.dotnet:${PATH}"
+
+FROM dotnet7 AS dotnet7-jre-17
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jre-headless --no-install-recommends && \
+    apt-get clean
 
 FROM base AS go
 ARG TARGETARCH

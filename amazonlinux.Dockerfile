@@ -14,6 +14,9 @@ RUN yum install -y libicu && \
 ENV DOTNET_ROOT="/root/.dotnet"
 ENV PATH="/root/.dotnet:${PATH}"
 
+FROM dotnet6 AS dotnet6-jre-17
+RUN yum install -y java-17-amazon-corretto-headless && yum clean all
+
 FROM base AS dotnet7
 RUN yum install -y libicu && \
     curl -fsSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 7.0 && \
@@ -22,6 +25,9 @@ RUN yum install -y libicu && \
     dotnet tool install -g Amazon.Lambda.Tools
 ENV DOTNET_ROOT="/root/.dotnet"
 ENV PATH="/root/.dotnet:${PATH}"
+
+FROM dotnet7 AS dotnet7-jre-17
+RUN yum install -y java-17-amazon-corretto-headless && yum clean all
 
 FROM base AS go
 ARG TARGETARCH
