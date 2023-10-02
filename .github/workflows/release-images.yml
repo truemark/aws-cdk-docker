@@ -36,7 +36,7 @@ jobs:
           aws-region: "us-east-1"
       - name: Login to ECR
         id: ecr-login
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
         with:
           registry-type: public
       - name: Setup Buildx Remote Docker
