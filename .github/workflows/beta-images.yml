@@ -2,10 +2,13 @@ name: beta
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
     branches:
-      - develop
-
+      - main
 permissions:
   id-token: write
   contents: write
