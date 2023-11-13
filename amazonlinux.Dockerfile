@@ -53,5 +53,5 @@ RUN yum install -y java-17-amazon-corretto-headless which && yum clean all
 
 FROM base AS go
 ARG TARGETARCH
-RUN curl -fsSL https://golang.org/dl/$(curl -fsSL "https://go.dev/VERSION?m=text").linux-${TARGETARCH}.tar.gz | tar -C /usr/local -xz && \
+RUN curl -fsSL https://golang.org/dl/$(curl -fsSL "https://go.dev/VERSION?m=text" | head -n 1).linux-${TARGETARCH}.tar.gz | tar -C /usr/local -xz && \
     ln -s /usr/local/go/bin/go /usr/local/bin/go

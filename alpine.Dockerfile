@@ -30,5 +30,5 @@ RUN apk add --no-cache openjdk17-jre-headless
 
 FROM base AS go
 ARG TARGETARCH
-RUN curl -fsSL https://golang.org/dl/$(curl -fsSL "https://go.dev/VERSION?m=text").linux-${TARGETARCH}.tar.gz | tar -C /usr/local -xz && \
+RUN curl -fsSL https://golang.org/dl/$(curl -fsSL "https://go.dev/VERSION?m=text" | head -n 1).linux-${TARGETARCH}.tar.gz | tar -C /usr/local -xz && \
     ln -s /usr/local/go/bin/go /usr/local/bin/go
