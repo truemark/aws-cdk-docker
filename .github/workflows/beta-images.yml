@@ -515,6 +515,36 @@ jobs:
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
           dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
           multi-arch: "all"
+      - name: Build Ubuntu Dotnet 6 JRE 17
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f ubuntu.Dockerfile \
+            -t truemark/aws-cdk:beta-ubuntu-dotnet6-jre-17-${{github.run_number}} \
+            -t truemark/aws-cdk:beta-ubuntu-dotnet6-jre-17 \
+            --target dotnet6-jre-17 \
+            .
+      - name: Copy beta-ubuntu-dotnet6-jre-17-${{github.run_number}} to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-ubuntu-dotnet6-jre-17-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu-dotnet6-jre-17-${{github.run_number}}"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Copy beta-ubuntu-dotnet6-jre-17 to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-ubuntu-dotnet6-jre-17"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu-dotnet6-jre-17"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
       - name: Build Ubuntu Dotnet 7
         run: |
           docker buildx build \
@@ -540,6 +570,36 @@ jobs:
         with:
           src-image: "docker://truemark/aws-cdk:beta-ubuntu-dotnet7"
           dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu-dotnet7"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Build Ubuntu Dotnet 7 JRE 17
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/arm64,linux/amd64 \
+            -f ubuntu.Dockerfile \
+            -t truemark/aws-cdk:beta-ubuntu-dotnet7-jre-17-${{github.run_number}} \
+            -t truemark/aws-cdk:beta-ubuntu-dotnet7-jre-17 \
+            --target dotnet7-jre-17 \
+            .
+      - name: Copy beta-ubuntu-dotnet7-jre-17-${{github.run_number}} to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-ubuntu-dotnet7-jre-17-${{github.run_number}}"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu-dotnet7-jre-17-${{github.run_number}}"
+          src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
+          src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
+          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+          multi-arch: "all"
+      - name: Copy beta-ubuntu-dotnet7-jre-17 to ECR
+        uses: truemark/skopeo-copy-action@v1
+        with:
+          src-image: "docker://truemark/aws-cdk:beta-ubuntu-dotnet7-jre-17"
+          dest-image: "docker://public.ecr.aws/truemark/aws-cdk:beta-ubuntu-dotnet7-jre-17"
           src-username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           src-password: "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}"
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
