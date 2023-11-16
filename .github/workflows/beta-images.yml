@@ -22,6 +22,7 @@ jobs:
       images: "truemark/aws-cdk:beta-amazonlinux-${{github.run_number}},truemark/aws-cdk:beta-amazonlinux,truemark/aws-cdk:beta"
       target: base
       security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
       instance_profile: ${{ vars.INSTANCE_PROFILE }}
       region: ${{ vars.AWS_REGION }}
     secrets:
