@@ -33,6 +33,10 @@ on:
         description: "Security Group ID"
         required: true
         type: string
+      subnet_id:
+        description: "Subnet ID"
+        required: true
+        type: string
       instance_profile:
         description: "Instance Profile"
         required: true
