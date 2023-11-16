@@ -16,7 +16,7 @@ permissions:
 jobs:
   build:
     name: Build Docker
-    uses: ./.github/workflows/build-docker.yml
+    uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:beta-amazonlinux-${{github.run_number}},truemark/aws-cdk:beta-amazonlinux,truemark/aws-cdk:beta"
