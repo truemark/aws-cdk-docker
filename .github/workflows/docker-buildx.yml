@@ -46,6 +46,14 @@ on:
         required: true
         type: string
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.prepare-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          echo "::set-output name=matrix::$(echo ${{ inputs.images }} | sed -e "s/,/ /g")"
   build:
     runs-on: ubuntu-latest
     steps:
@@ -83,3 +91,22 @@ jobs:
             -t $(echo ${{ inputs.images }} | sed -e "s/,/ -t /g") \
             --target ${{ inputs.target }} \
             .
+  copy-images:
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJson(needs.prepare.outputs.matrix)}}
+    steps:
+      - name: Copy image to ECR
+        run: |
+          echo "Copying ${{ matrix.image }} to ECR"
+#      - name: Copy images to ECR
+#        uses: truemark/skopeo-copy-action@v1
+#        with:
+#          src-image: ""
+#          dest-image: ""
+#          src-username: ${{ secrets.docker_hub_username }}
+#          src-password: ${{ secrets.docker_hub_password }}
+#          dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
+#          dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
+#          multi-arch: true
