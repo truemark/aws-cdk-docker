@@ -53,8 +53,8 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "MATRIX='{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/","/g')]}'"
-          echo "MATRIX='{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/","/g')]}'" > $GITHUB_OUTPUT
+          echo "MATRIX='{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/\",\"/g')]}'"
+          echo "MATRIX='{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/\",\"/g')]}'" > $GITHUB_OUTPUT
   build:
     runs-on: ubuntu-latest
     steps:
