@@ -80,6 +80,6 @@ jobs:
             --push \
             --platform ${{ inputs.platform }} \
             -f ${{ inputs.dockerfile }} \
-            $(echo ${{ inputs.images }} | sed -e "s/,/ -t /g") \
+            -t $(echo ${{ inputs.images }} | sed -e "s/,/ -t /g") \
             --target ${{ inputs.target }} \
             .
