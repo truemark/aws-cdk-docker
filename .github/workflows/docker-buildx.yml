@@ -51,7 +51,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo MATRIX_JSON="{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/","/g')]}" > $GITHUB_ENV
+          echo 'MATRIX_JSON="{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/","/g')]}"' > $GITHUB_ENV
   build:
     runs-on: ubuntu-latest
     steps:
