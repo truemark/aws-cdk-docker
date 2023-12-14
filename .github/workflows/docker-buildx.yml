@@ -51,7 +51,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "matrix=\"{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/","/g')]}\"" > $GITHUB_OUTPUT
+          echo "MATRIX=\"{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/","/g')]}\"" > $GITHUB_OUTPUT
   build:
     runs-on: ubuntu-latest
     steps:
@@ -93,8 +93,7 @@ jobs:
     needs: [prepare, build]
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        images: ${{ fromJson(needs.prepare.outputs.matrix).images }}
+      matrix: ${{ fromJson(steps.prepare.outputs.MATRIX).images }}
     steps:
       - name: Copy image to ECR
         run: |
