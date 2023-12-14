@@ -119,4 +119,3 @@ jobs:
           src-password: ${{ secrets.docker_hub_password }}
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
           dest-password: "${{ steps.ecr-login.outputs.docker_password_public_ecr_aws }}"
-          multi-arch: true
