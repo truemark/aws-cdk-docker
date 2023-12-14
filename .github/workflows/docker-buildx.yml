@@ -90,7 +90,7 @@ jobs:
 #            --target ${{ inputs.target }} \
 #            .
   copy-images:
-    needs: [prepare, build]
+    needs: [build]
     runs-on: ubuntu-latest
     strategy:
       matrix:
