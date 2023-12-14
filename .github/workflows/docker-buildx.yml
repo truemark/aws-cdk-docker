@@ -96,12 +96,12 @@ jobs:
     steps:
       - name: Echo images
         run: |
-          echo "Images: ${{ steps.set-matrix.outputs.MATRIX }}"
+          echo "Images: ${{ needs.prepare.outputs.MATRIX }}"
   copy-images:
     needs: [prepare, build]
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJson(steps.set-matrix.outputs.MATRIX).images }}
+      matrix: ${{ fromJson(needs.prepare.outputs.MATRIX).images }}
     steps:
       - name: Copy image to ECR
         run: |
