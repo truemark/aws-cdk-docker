@@ -54,6 +54,7 @@ jobs:
       - id: set-matrix
         run: |
           MATRIX="{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/\",\"/g')]}"
+          echo "MATRIX=$MATRIX"
           echo "MATRIX=$MATRIX" >> $GITHUB_OUTPUT
 #          echo "MATRIX='{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/\",\"/g')]}'"
 #          echo "MATRIX='{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/\\",\\"/g')]}'" >> $GITHUB_OUTPUT
