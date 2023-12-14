@@ -17,7 +17,7 @@ jobs:
   build-amazon-linux:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -35,7 +35,7 @@ jobs:
   build-amazon-linux-dotnetcore31:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -53,7 +53,7 @@ jobs:
   build-amazon-linux-dotnetcore31-jre-17:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -71,7 +71,7 @@ jobs:
   build-amazon-linux-dotnet5:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -89,7 +89,7 @@ jobs:
   build-amazon-linux-dotnet5-jre-17:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -107,7 +107,7 @@ jobs:
   build-amazon-linux-dotnet6:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -125,7 +125,7 @@ jobs:
   build-amazon-linux-dotnet6-jre-17:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -143,7 +143,7 @@ jobs:
   build-amazon-linux-dotnet7:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -161,7 +161,7 @@ jobs:
   build-amazon-linux-dotnet7-jre-17:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -179,7 +179,7 @@ jobs:
   build-amazon-linux-go:
     concurrency:
       group: amazon-linux
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -197,7 +197,7 @@ jobs:
   build-ubuntu:
     concurrency:
       group: ubuntu
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -230,7 +230,7 @@ jobs:
   build-ubuntu-dotnet6-jre-17:
     concurrency:
       group: ubuntu
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -248,7 +248,7 @@ jobs:
   build-ubuntu-dotnet7:
     concurrency:
       group: ubuntu
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -266,7 +266,7 @@ jobs:
   build-ubuntu-dotnet7-jre-17:
     concurrency:
       group: ubuntu
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -284,7 +284,7 @@ jobs:
   build-ubuntu-go:
     concurrency:
       group: ubuntu
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -302,7 +302,7 @@ jobs:
   build-alpine:
     concurrency:
       group: alpine
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "alpine.Dockerfile"
@@ -320,7 +320,7 @@ jobs:
   build-alpine-dotnet6:
     concurrency:
       group: alpine
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "alpine.Dockerfile"
@@ -338,7 +338,7 @@ jobs:
   build-alpine-dotnet7:
     concurrency:
       group: alpine
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "alpine.Dockerfile"
@@ -356,7 +356,7 @@ jobs:
   build-alpine-go:
     concurrency:
       group: alpine
-      cancel-in-progress: true
+      cancel-in-progress: false
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "alpine.Dockerfile"
