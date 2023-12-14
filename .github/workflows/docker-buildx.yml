@@ -103,7 +103,7 @@ jobs:
     needs: [prepare, build]
     runs-on: ubuntu-latest
     strategy:
-      matrix: "${{fromJson(needs.prepare.outputs.MATRIX)}}"
+      matrix: "${{fromJson(needs.prepare.outputs.MATRIX).images}}"
     steps:
       - name: Copy image to ECR
         run: |
