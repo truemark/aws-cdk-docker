@@ -33,7 +33,7 @@ jobs:
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
-      images: "truemark/aws-cdk:beta-amazonlinux-dotnetcore31-${{github:run_number}},truemark/aws-cdk:beta-amazonlinux-dotnetcore31,truemark/aws-cdk:beta-dotnetcore31"
+      images: "truemark/aws-cdk:beta-amazonlinux-dotnetcore31-${{github.run_number}},truemark/aws-cdk:beta-amazonlinux-dotnetcore31,truemark/aws-cdk:beta-dotnetcore31"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnetcore31
       security_group_id: ${{ vars.SECURITY_GROUP_ID }}
