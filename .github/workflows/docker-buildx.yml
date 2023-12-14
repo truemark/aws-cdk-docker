@@ -81,8 +81,5 @@ jobs:
             --platform ${{ inputs.platform }} \
             -f ${{ inputs.dockerfile }} \
             $(echo ${{ inputs.images }} | sed -e "s/,/ -t /g") \
-            -t truemark/aws-cdk:beta-amazonlinux-${{github.run_number}} \
-            -t truemark/aws-cdk:beta-amazonlinux \
-            -t truemark/aws-cdk:beta \
             --target ${{ inputs.target }} \
             .
