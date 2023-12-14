@@ -53,44 +53,44 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "::set-output name=matrix::$(echo ${{ inputs.images }} | sed -e "s/,/ /g")"
+          echo '{"images": ['$(echo '${{ inputs.images }}' | sed 's/,/","/g)']}' > $GITHUB_ENV
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.docker_hub_username }}
-          password: ${{ secrets.docker_hub_password }}
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: "${{ secrets.aws_assume_role }}"
-          aws-region: "us-east-1"
-      - name: Login to ECR
-        id: ecr-login
-        uses: aws-actions/amazon-ecr-login@v2
-        with:
-          registry-type: public
-      - name: Setup Buildx Remote Docker
-        id: buildx
-        uses: truemark/aws-buildx-remote-docker-instance-action@v4
-        with:
-          security-group-id: "${{ inputs.security_group_id }}"
-          subnet-id: "${{ inputs.subnet_id }}"
-          instance-profile: "${{ inputs.instance_profile }}"
-          region: "${{ inputs.region }}"
-      - name: Build Docker
-        run: |
-          docker buildx build \
-            --push \
-            --platform ${{ inputs.platform }} \
-            -f ${{ inputs.dockerfile }} \
-            -t $(echo ${{ inputs.images }} | sed -e "s/,/ -t /g") \
-            --target ${{ inputs.target }} \
-            .
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v3
+#        with:
+#          username: ${{ secrets.docker_hub_username }}
+#          password: ${{ secrets.docker_hub_password }}
+#      - name: Configure AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          role-to-assume: "${{ secrets.aws_assume_role }}"
+#          aws-region: "us-east-1"
+#      - name: Login to ECR
+#        id: ecr-login
+#        uses: aws-actions/amazon-ecr-login@v2
+#        with:
+#          registry-type: public
+#      - name: Setup Buildx Remote Docker
+#        id: buildx
+#        uses: truemark/aws-buildx-remote-docker-instance-action@v4
+#        with:
+#          security-group-id: "${{ inputs.security_group_id }}"
+#          subnet-id: "${{ inputs.subnet_id }}"
+#          instance-profile: "${{ inputs.instance_profile }}"
+#          region: "${{ inputs.region }}"
+#      - name: Build Docker
+#        run: |
+#          docker buildx build \
+#            --push \
+#            --platform ${{ inputs.platform }} \
+#            -f ${{ inputs.dockerfile }} \
+#            -t $(echo ${{ inputs.images }} | sed -e "s/,/ -t /g") \
+#            --target ${{ inputs.target }} \
+#            .
   copy-images:
     needs: [prepare, build]
     runs-on: ubuntu-latest
