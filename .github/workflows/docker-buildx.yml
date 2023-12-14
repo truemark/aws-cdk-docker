@@ -51,6 +51,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
+          echo "MATRIX=\"{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/","/g')]}\""
           echo "MATRIX=\"{\"images\": [$(echo \"${{ inputs.images }}\" | sed 's/,/","/g')]}\"" > $GITHUB_OUTPUT
   build:
     runs-on: ubuntu-latest
@@ -97,7 +98,7 @@ jobs:
     steps:
       - name: Copy image to ECR
         run: |
-          echo "Copying ${{ matrix.image }} to ECR"
+          echo "Copying ${{ matrix.images }} to ECR"
 #      - name: Copy images to ECR
 #        uses: truemark/skopeo-copy-action@v1
 #        with:
