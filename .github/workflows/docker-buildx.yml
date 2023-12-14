@@ -94,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        images: [$(echo \"${{ inputs.images }}\" | sed 's/,/","/g')]
+        images: [$(echo ${{ inputs.images }} | sed 's/,/","/g')]
     steps:
       - name: Copy image to ECR
         run: |
