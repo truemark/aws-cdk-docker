@@ -96,7 +96,7 @@ jobs:
     steps:
       - name: Echo images
         run: |
-          echo "Images: ${{ fromJson(needs.prepare.outputs.MATRIX).images }}"
+          echo "Images: ${{ needs.prepare.outputs.MATRIX }}"
   copy-images:
     needs: [prepare, build]
     runs-on: ubuntu-latest
