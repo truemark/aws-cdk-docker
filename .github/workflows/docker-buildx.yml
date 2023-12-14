@@ -90,6 +90,13 @@ jobs:
 #            -t $(echo ${{ inputs.images }} | sed -e "s/,/ -t /g") \
 #            --target ${{ inputs.target }} \
 #            .
+  echo-images:
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo images
+        run: |
+          echo "Images: ${{ fromJson(needs.prepare.outputs.MATRIX).images }}"
   copy-images:
     needs: [prepare, build]
     runs-on: ubuntu-latest
