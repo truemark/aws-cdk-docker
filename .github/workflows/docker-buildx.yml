@@ -48,6 +48,8 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    outputs:
+        MATRIX: ${{ steps.set-matrix.outputs.MATRIX }}
     steps:
       - id: set-matrix
         run: |
