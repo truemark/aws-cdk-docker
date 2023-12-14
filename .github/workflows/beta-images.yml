@@ -20,6 +20,7 @@ jobs:
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:beta-amazonlinux-${{github.run_number}},truemark/aws-cdk:beta-amazonlinux,truemark/aws-cdk:beta"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: base
       security_group_id: ${{ vars.SECURITY_GROUP_ID }}
       subnet_id: ${{ vars.SUBNET_ID }}

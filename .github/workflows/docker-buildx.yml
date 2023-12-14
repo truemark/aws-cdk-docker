@@ -112,8 +112,8 @@ jobs:
       - name: Copy images to ECR
         uses: truemark/skopeo-copy-action@v1
         with:
-          src-image: "${{ matrix.images }}"
-          dest-image: "${{ env.ECR_IMAGE }}"
+          src-image: "docker://${{ matrix.images }}"
+          dest-image: "docker://${{ env.ECR_IMAGE }}"
           src-username: ${{ secrets.docker_hub_username }}
           src-password: ${{ secrets.docker_hub_password }}
           dest-username: "${{ steps.ecr-login.outputs.docker_username_public_ecr_aws }}"
