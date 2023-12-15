@@ -426,22 +426,22 @@ jobs:
       aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-  build-alpine-dotnet8-jre-21:
-    needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
-    with:
-      dockerfile: "alpine.Dockerfile"
-      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8-jre-21-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8-jre-21"
-      copy_to_ecr_prefix: "public.ecr.aws/truemark"
-      target: dotnet8-jre-21
-      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
-      subnet_id: ${{ vars.SUBNET_ID }}
-      instance_profile: ${{ vars.INSTANCE_PROFILE }}
-      region: ${{ vars.AWS_REGION }}
-    secrets:
-      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
-      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+#  build-alpine-dotnet8-jre-21:
+#    needs: [prepare]
+#    uses: ./.github/workflows/docker-buildx.yml
+#    with:
+#      dockerfile: "alpine.Dockerfile"
+#      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8-jre-21-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8-jre-21"
+#      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+#      target: dotnet8-jre-21
+#      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+#      subnet_id: ${{ vars.SUBNET_ID }}
+#      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+#      region: ${{ vars.AWS_REGION }}
+#    secrets:
+#      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+#      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+#      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-alpine-go:
     needs: [prepare]
     uses: ./.github/workflows/docker-buildx.yml
