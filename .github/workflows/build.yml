@@ -1,0 +1,364 @@
+name: beta
+
+on:
+  workflow_dispatch:
+#    push:
+#      branches:
+#        - main
+#    schedule:
+#      # Run at 6PM UTC every Monday which is 2 hours after the truemark/aws-cli build
+#      - cron: '0 18 * * 1'
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - main
+
+# https://github.com/gautamkrishnar/keepalive-workflow/discussions/13
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      PREFIX: ${{ steps.set-prefix-release.outputs.PREFIX }}${{ steps.set-prefix-beta.outputs.PREFIX }}
+      ROOT_PREFIX: ${{ steps.set-prefix-release.outputs.ROOT_PREFIX }}${{ steps.set-prefix-beta.outputs.ROOT_PREFIX }}
+    steps:
+        - id: set-prefix-release
+          if: github.ref == 'refs/heads/main'
+          run: |
+            PREFIX=""
+            echo "PREFIX=$PREFIX" >> $GITHUB_OUTPUT
+            ROOT_PREFIX="latest"
+            echo "ROOT_PREFIX=$ROOT_PREFIX" >> $GITHUB_OUTPUT
+        - id: set-prefix-beta
+          if: github.ref != 'refs/heads/main'
+          run: |
+            PREFIX="beta-"
+            echo "PREFIX=$PREFIX" >> $GITHUB_OUTPUT
+            ROOT_PREFIX="beta"
+            echo "ROOT_PREFIX=$ROOT_PREFIX" >> $GITHUB_OUTPUT
+  build-amazon-linux:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux,truemark/aws-cdk:${{ needs.prepare.outputs.ROOT_PREFIX }}"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: base
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-amazon-linux-dotnetcore31:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnetcore31-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnetcore31,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnetcore31"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnetcore31
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-amazon-linux-dotnetcore31-jre-17:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnetcore31-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnetcore31-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnetcore31-jre-17"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnetcore31-jre-17
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-amazon-linux-dotnet5:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet5-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet5,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet5"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet5
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-amazon-linux-dotnet5-jre-17:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet5-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet5-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet5-jre-17"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet5-jre-17
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-amazon-linux-dotnet6:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet6"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet6
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-amazon-linux-dotnet6-jre-17:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet6-jre-17"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet6-jre-17
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-amazon-linux-dotnet7:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet7"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet7
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-amazon-linux-dotnet7-jre-17:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet7-jre-17"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet7-jre-17
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-amazon-linux-go:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "amazonlinux.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-go-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-go,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}go"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: go
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-ubuntu:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "ubuntu.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: base
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-ubuntu-dotnet6:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "ubuntu.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet6
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-ubuntu-dotnet6-jre-17:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "ubuntu.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6-jre-17"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet6-jre-17
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-ubuntu-dotnet7:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "ubuntu.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet7
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-ubuntu-dotnet7-jre-17:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "ubuntu.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7-jre-17"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet7-jre-17
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-ubuntu-go:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "ubuntu.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-go-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-go"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: go
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-alpine:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "alpine.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: base
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-alpine-dotnet6:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "alpine.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet6-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet6"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet6
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-alpine-dotnet7:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "alpine.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet7-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet7"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: dotnet7
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  build-alpine-go:
+    needs: [prepare]
+    uses: ./.github/workflows/docker-buildx.yml
+    with:
+      dockerfile: "alpine.Dockerfile"
+      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-go-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-go"
+      copy_to_ecr_prefix: "public.ecr.aws/truemark"
+      target: go
+      security_group_id: ${{ vars.SECURITY_GROUP_ID }}
+      subnet_id: ${{ vars.SUBNET_ID }}
+      instance_profile: ${{ vars.INSTANCE_PROFILE }}
+      region: ${{ vars.AWS_REGION }}
+    secrets:
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
