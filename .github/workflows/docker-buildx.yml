@@ -65,6 +65,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Setup Buildx
+        uses: docker/setup-buildx-action@v3
+#      - name: Setup Buildx Remote Docker
+#        id: buildx
+#        uses: truemark/aws-buildx-remote-docker-instance-action@v4
+#        with:
+#          security-group-id: "${{ inputs.security_group_id }}"
+#          subnet-id: "${{ inputs.subnet_id }}"
+#          instance-profile: "${{ inputs.instance_profile }}"
+#          region: "${{ inputs.region }}"
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -75,14 +87,6 @@ jobs:
         with:
           role-to-assume: "${{ secrets.aws_assume_role }}"
           aws-region: "us-east-1"
-      - name: Setup Buildx Remote Docker
-        id: buildx
-        uses: truemark/aws-buildx-remote-docker-instance-action@v4
-        with:
-          security-group-id: "${{ inputs.security_group_id }}"
-          subnet-id: "${{ inputs.subnet_id }}"
-          instance-profile: "${{ inputs.instance_profile }}"
-          region: "${{ inputs.region }}"
       - name: Build Docker
         run: |
           docker buildx build \

@@ -30,7 +30,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnetcore31:
-    needs: [build-amazon-linux]
+#    needs: [build-amazon-linux]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -46,7 +46,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnetcore31-jre-17:
-    needs: [build-amazon-linux-dotnetcore31]
+#    needs: [build-amazon-linux-dotnetcore31]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -62,7 +62,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet5:
-    needs: [build-amazon-linux]
+#    needs: [build-amazon-linux]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -78,7 +78,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet5-jre-17:
-    needs: [build-amazon-linux-dotnet5]
+#    needs: [build-amazon-linux-dotnet5]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -94,7 +94,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet6:
-    needs: [build-amazon-linux]
+#    needs: [build-amazon-linux]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -110,7 +110,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet6-jre-17:
-    needs: [build-amazon-linux-dotnet6]
+#    needs: [build-amazon-linux-dotnet6]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -126,7 +126,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet7:
-    needs: [build-amazon-linux]
+#    needs: [build-amazon-linux]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -142,7 +142,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet7-jre-17:
-    needs: [build-amazon-linux-dotnet7]
+#    needs: [build-amazon-linux-dotnet7]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -158,7 +158,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-go:
-    needs: [build-amazon-linux]
+#    needs: [build-amazon-linux]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "amazonlinux.Dockerfile"
@@ -189,7 +189,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet6:
-    needs: [build-ubuntu]
+#    needs: [build-ubuntu]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -205,7 +205,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet6-jre-17:
-    needs: [build-ubuntu-dotnet6]
+#    needs: [build-ubuntu-dotnet6]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -221,7 +221,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet7:
-    needs: [build-ubuntu]
+#    needs: [build-ubuntu]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -237,7 +237,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet7-jre-17:
-    needs: [build-ubuntu-dotnet7]
+#    needs: [build-ubuntu-dotnet7]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -253,7 +253,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-go:
-    needs: [build-ubuntu]
+#    needs: [build-ubuntu]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "ubuntu.Dockerfile"
@@ -284,7 +284,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-alpine-dotnet6:
-    needs: [build-alpine]
+#    needs: [build-alpine]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "alpine.Dockerfile"
@@ -300,7 +300,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-alpine-dotnet7:
-    needs: [build-alpine]
+#    needs: [build-alpine]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "alpine.Dockerfile"
@@ -316,7 +316,7 @@ jobs:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-alpine-go:
-    needs: [build-alpine]
+#    needs: [build-alpine]
     uses: ./.github/workflows/docker-buildx.yml
     with:
       dockerfile: "alpine.Dockerfile"
