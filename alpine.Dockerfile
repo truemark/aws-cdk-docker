@@ -25,8 +25,19 @@ RUN apk add --no-cache icu-libs && \
 ENV DOTNET_ROOT="/root/.dotnet"
 ENV PATH="/root/.dotnet:${PATH}"
 
-FROM dotnet6 AS dotnet7-jre-17
+FROM dotnet7 AS dotnet7-jre-17
 RUN apk add --no-cache openjdk17-jre-headless
+
+FROM base AS dotnet8
+RUN apk add --no-cache icu-libs && \
+    curl -fsSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 8.0 && \
+    ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet && \
+    dotnet tool install -g Amazon.Lambda.Tools
+ENV DOTNET_ROOT="/root/.dotnet"
+ENV PATH="/root/.dotnet:${PATH}"
+
+FROM dotnet8 AS dotnet8-jre-21
+RUN apk add --no-cache openjdk21-jre-headless
 
 FROM base AS go
 ARG TARGETARCH

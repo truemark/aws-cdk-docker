@@ -51,6 +51,18 @@ ENV PATH="/root/.dotnet:${PATH}"
 FROM dotnet7 AS dotnet7-jre-17
 RUN yum install -y java-17-amazon-corretto-headless which && yum clean all
 
+FROM base AS dotnet8
+RUN yum install -y libicu && \
+    curl -fsSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 8.0 && \
+    ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet && \
+    yum clean all && \
+    dotnet tool install -g Amazon.Lambda.Tools
+ENV DOTNET_ROOT="/root/.dotnet"
+ENV PATH="/root/.dotnet:${PATH}"
+
+FROM dotnet8 AS dotnet8-jre-21
+RUN yum install -y java-21-amazon-corretto-headless which && yum clean all
+
 FROM base AS go
 ARG TARGETARCH
 RUN curl -fsSL https://golang.org/dl/$(curl -fsSL "https://go.dev/VERSION?m=text" | head -n 1).linux-${TARGETARCH}.tar.gz | tar -C /usr/local -xz && \
