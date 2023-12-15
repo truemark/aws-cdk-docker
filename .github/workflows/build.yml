@@ -2,12 +2,12 @@ name: beta
 
 on:
   workflow_dispatch:
-    push:
-      branches:
-        - main
-    schedule:
-      # Run at 6PM UTC every Monday which is 2 hours after the truemark/aws-cli build
-      - cron: '0 18 * * 1'
+  push:
+    branches:
+      - main
+  schedule:
+    # Run at 6PM UTC every Monday which is 2 hours after the truemark/aws-cli build
+    - cron: '0 18 * * 1'
   pull_request:
     types:
       - opened
