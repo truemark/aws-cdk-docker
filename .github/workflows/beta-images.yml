@@ -25,17 +25,17 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      PREFIX: ${{ steps.set-prefix.outputs.PREFIX }}
-      ROOT_PREFIX: ${{ steps.set-prefix.outputs.ROOT_PREFIX }}
+      PREFIX: ${{ steps.set-prefix-release.outputs.PREFIX }}${{ steps.set-prefix-beta.outputs.PREFIX }}
+      ROOT_PREFIX: ${{ steps.set-prefix-release.outputs.ROOT_PREFIX }}${{ steps.set-prefix-beta.outputs.ROOT_PREFIX }}
     steps:
-        - id: set-prefix
+        - id: set-prefix-release
           if: github.ref == 'refs/heads/main'
           run: |
             PREFIX=""
             echo "PREFIX=$PREFIX" >> $GITHUB_OUTPUT
             ROOT_PREFIX="latest"
             echo "ROOT_PREFIX=$ROOT_PREFIX" >> $GITHUB_OUTPUT
-        - id: set-prefix
+        - id: set-prefix-beta
           if: github.ref != 'refs/heads/main'
           run: |
             PREFIX="beta-"
