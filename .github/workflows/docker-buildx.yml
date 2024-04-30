@@ -33,6 +33,11 @@ on:
         required: false
         type: string
         default: "linux/arm64,linux/amd64"
+      use_remote:
+        description: "Use remote buildx"
+        required: false
+        type: boolean
+        default: false
       security_group_id:
         description: "Security Group ID"
         required: true
@@ -67,16 +72,19 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+        if: inputs.use_remote == false
       - name: Setup Buildx
         uses: docker/setup-buildx-action@v3
-#      - name: Setup Buildx Remote Docker
-#        id: buildx
-#        uses: truemark/aws-buildx-remote-docker-instance-action@v4
-#        with:
-#          security-group-id: "${{ inputs.security_group_id }}"
-#          subnet-id: "${{ inputs.subnet_id }}"
-#          instance-profile: "${{ inputs.instance_profile }}"
-#          region: "${{ inputs.region }}"
+        if: inputs.use_remote == false
+      - name: Setup Buildx Remote
+        id: buildx
+        uses: truemark/aws-buildx-remote-docker-instance-action@v4
+        if: inputs.use_remote == true
+        with:
+          security-group-id: "${{ inputs.security_group_id }}"
+          subnet-id: "${{ inputs.subnet_id }}"
+          instance-profile: "${{ inputs.instance_profile }}"
+          region: "${{ inputs.region }}"
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
