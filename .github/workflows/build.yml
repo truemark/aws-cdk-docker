@@ -44,7 +44,7 @@ jobs:
             echo "ROOT_PREFIX=$ROOT_PREFIX" >> $GITHUB_OUTPUT
   build-amazon-linux:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux,truemark/aws-cdk:${{ needs.prepare.outputs.ROOT_PREFIX }}"
@@ -60,7 +60,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnetcore31:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnetcore31-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnetcore31,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnetcore31"
@@ -76,7 +76,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnetcore31-jre-17:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnetcore31-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnetcore31-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnetcore31-jre-17"
@@ -92,7 +92,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet5:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet5-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet5,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet5"
@@ -108,7 +108,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet5-jre-17:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet5-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet5-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet5-jre-17"
@@ -124,7 +124,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet6:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet6"
@@ -140,7 +140,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet6-jre-17:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet6-jre-17"
@@ -156,7 +156,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet7:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet7"
@@ -172,7 +172,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet7-jre-17:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet7-jre-17"
@@ -188,7 +188,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet8:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet8-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet8,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet8"
@@ -204,7 +204,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-dotnet8-jre-21:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet8-jre-21-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet8-jre-21,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet8-jre-21"
@@ -220,7 +220,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-amazon-linux-go:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-go-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-go,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}go"
@@ -236,7 +236,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu"
@@ -252,7 +252,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet6:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6"
@@ -268,7 +268,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet6-jre-17:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6-jre-17"
@@ -284,7 +284,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet7:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7"
@@ -300,7 +300,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet7-jre-17:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7-jre-17"
@@ -316,7 +316,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet8:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet8-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet8"
@@ -332,7 +332,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-dotnet8-jre-21:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet8-jre-21-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet8-jre-21"
@@ -348,7 +348,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-ubuntu-go:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-go-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-go"
@@ -364,7 +364,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-alpine:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine"
@@ -380,7 +380,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-alpine-dotnet6:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet6-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet6"
@@ -396,7 +396,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-alpine-dotnet7:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet7-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet7"
@@ -412,7 +412,7 @@ jobs:
       docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-alpine-dotnet8:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8"
@@ -444,7 +444,7 @@ jobs:
 #      docker_hub_password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   build-alpine-go:
     needs: [prepare]
-    uses: ./.github/workflows/docker-buildx.yml
+    uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-go-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-go"
