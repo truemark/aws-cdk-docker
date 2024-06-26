@@ -16,10 +16,6 @@ and STS role changing. See https://github.com/truemark/aws-cli-docker.
   - public.ecr.aws/truemark/aws-cdk:dotnet7-jre-17
   - public.ecr.aws/truemark/aws-cdk:dotnet6
   - public.ecr.aws/truemark/aws-cdk:dotnet6-jre-17
-  - public.ecr.aws/truemark/aws-cdk:dotnet5
-  - public.ecr.aws/truemark/aws-cdk:dotnet5-jre-17
-  - public.ecr.aws/truemark/aws-cdk:dotnetcore31
-  - public.ecr.aws/truemark/aws-cdk:dotnetcore31-jre-17
 - Ubuntu
   - public.ecr.aws/truemark/aws-cdk:ubuntu
   - public.ecr.aws/truemark/aws-cdk:ubuntu-go
@@ -40,6 +36,13 @@ and STS role changing. See https://github.com/truemark/aws-cli-docker.
  - To use these same images from DockerHub, just remove the *public.ecr/* from the image name.
  - These images are meant to be build and deploy images and are not meant to be use a runtime images for a service.
 
+The following images exist in the repository, but are no longer maintained or built:
+
+ - Amazon Linux
+   - public.ecr.aws/truemark/aws-cdk:dotnetcore31
+   - public.ecr.aws/truemark/aws-cdk:dotnetcore31-jre-17
+   - public.ecr.aws/truemark/aws-cdk:dotnet5
+   - public.ecr.aws/truemark/aws-cdk:dotnet5-jre-17
 
 ## How do I use this image in BitBucket pipelines?
 
