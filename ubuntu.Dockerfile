@@ -1,5 +1,5 @@
-ARG NODE_VERSION
-FROM truemark/node:$NODE_VERSION-ubuntu-jammy AS node
+ARG NODE_VERSION=XX
+FROM truemark/node:${NODE_VERSION}-ubuntu-jammy AS node
 
 FROM truemark/aws-cli:ubuntu-jammy AS base
 COPY --from=truemark/git:ubuntu-jammy /usr/local/ /usr/local/
