@@ -47,6 +47,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux,truemark/aws-cdk:${{ needs.prepare.outputs.ROOT_PREFIX }}"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: base
@@ -63,6 +64,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet6"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet6
@@ -79,6 +81,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet6-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet6-jre-17"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet6-jre-17
@@ -95,6 +98,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet7"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet7
@@ -111,6 +115,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet7-jre-17,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet7-jre-17"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet7-jre-17
@@ -127,6 +132,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet8-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet8,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet8"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet8
@@ -143,6 +149,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet8-jre-21-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-dotnet8-jre-21,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}dotnet8-jre-21"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet8-jre-21
@@ -159,6 +166,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "amazonlinux.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-go-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}amazonlinux-go,truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}go"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: go
@@ -175,6 +183,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: base
@@ -191,6 +200,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet6
@@ -207,6 +217,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet6-jre-17"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet6-jre-17
@@ -223,6 +234,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet7
@@ -239,6 +251,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7-jre-17-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet7-jre-17"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet7-jre-17
@@ -255,6 +268,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet8-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet8"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet8
@@ -271,6 +285,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet8-jre-21-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-dotnet8-jre-21"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet7-jre-17
@@ -287,6 +302,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "ubuntu.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-go-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}ubuntu-go"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: go
@@ -303,6 +319,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: base
@@ -319,6 +336,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet6-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet6"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet6
@@ -335,6 +353,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet7-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet7"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet7
@@ -351,6 +370,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: dotnet8
@@ -367,6 +387,7 @@ jobs:
 #    uses: ./.github/workflows/docker-buildx.yml
 #    with:
 #      dockerfile: "alpine.Dockerfile"
+#      build_args: "NODE_VERSION=20"
 #      images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8-jre-21-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-dotnet8-jre-21"
 #      copy_to_ecr_prefix: "public.ecr.aws/truemark"
 #      target: dotnet8-jre-21
@@ -383,6 +404,7 @@ jobs:
     uses: truemark/github-workflows/.github/workflows/docker-buildx.yml@main
     with:
       dockerfile: "alpine.Dockerfile"
+      build_args: "NODE_VERSION=20"
       images: "truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-go-${{github.run_number}},truemark/aws-cdk:${{ needs.prepare.outputs.PREFIX }}alpine-go"
       copy_to_ecr_prefix: "public.ecr.aws/truemark"
       target: go

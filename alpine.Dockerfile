@@ -1,7 +1,10 @@
+ARG NODE_VERSION
+FROM truemark/node:$NODE_VERSION-alpine-3.17 AS node
+
 FROM truemark/aws-cli:alpine-3.17 AS base
 COPY --from=truemark/git:alpine-3.17 /usr/local/ /usr/local/
 COPY --from=truemark/git-crypt:alpine-3.17 /usr/local/ /usr/local/
-COPY --from=truemark/node:20-alpine-3.17 /usr/local /usr/local/
+COPY --from=node /usr/local /usr/local/
 RUN apk add libstdc++ --no-cache && \
     npm install -g typescript aws-cdk pnpm yarn esbuild && \
     npm config set fund false --location=global

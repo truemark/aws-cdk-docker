@@ -1,7 +1,10 @@
+ARG NODE_VERSION
+FROM truemark/node:$NODE_VERSION-ubuntu-jammy AS node
+
 FROM truemark/aws-cli:ubuntu-jammy AS base
 COPY --from=truemark/git:ubuntu-jammy /usr/local/ /usr/local/
 COPY --from=truemark/git-crypt:ubuntu-jammy /usr/local/ /usr/local/
-COPY --from=truemark/node:20-ubuntu-jammy /usr/local /usr/local/
+COPY --from=node /usr/local /usr/local/
 RUN npm install -g typescript aws-cdk pnpm yarn esbuild && \
     npm config set fund false --location=global
 
