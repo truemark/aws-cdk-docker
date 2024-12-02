@@ -12,6 +12,6 @@ set -euo pipefail
 #  --platform linux/arm64,linux/amd64 \
 #  -t truemark/aws-cdk:beta .
 
-docker build -t moo --build-arg NODE_VERSION=18 -f alpine.Dockerfile --target dotnet6-jre-17 .
-#docker build -t moo --build-arg NODE_VERSION=18 -f ubuntu.Dockerfile --target dotnet6-jre-17 .
+#docker build -t moo --build-arg NODE_VERSION=18 -f alpine.Dockerfile --target dotnet6-jre-17 .
+docker build -t moo --build-arg "NODE_VERSION=18" -f ubuntu.Dockerfile --target base .
 #docker build -t moo --build-arg NODE_VERSION=18 -f amazonlinux.Dockerfile --target dotnet6-jre-17 .

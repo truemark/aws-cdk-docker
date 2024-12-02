@@ -1,5 +1,5 @@
-ARG NODE_VERSION
-FROM truemark/node:$NODE_VERSION-alpine-3.17 AS node
+ARG NODE_VERSION=XX
+FROM truemark/node:${NODE_VERSION}-alpine-3.17 AS node
 
 FROM truemark/aws-cli:alpine-3.17 AS base
 COPY --from=truemark/git:alpine-3.17 /usr/local/ /usr/local/

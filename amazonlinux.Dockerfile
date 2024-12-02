@@ -1,5 +1,5 @@
-ARG NODE_VERSION
-FROM truemark/node:$NODE_VERSION-amazonlinux-2023 AS node
+ARG NODE_VERSION=XX
+FROM truemark/node:${NODE_VERSION}-amazonlinux-2023 AS node
 
 FROM truemark/aws-cli:amazonlinux-2023 AS base
 COPY --from=truemark/git:amazonlinux-2023 /usr/local/ /usr/local/
