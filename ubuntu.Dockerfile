@@ -53,6 +53,21 @@ RUN apt-get update && \
     apt-get install -y openjdk-21-jre-headless --no-install-recommends && \
     apt-get clean
 
+FROM base AS dotnet9
+RUN apt-get update && \
+    apt-get install -y libicu70 --no-install-recommends && \
+    curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- -c 9.0 && \
+    ln -s /root/.dotnet/dotnet /usr/local/bin/dotnet && \
+    apt-get clean && \
+    dotnet tool install -g Amazon.Lambda.Tools
+ENV DOTNET_ROOT="/root/.dotnet"
+ENV PATH="/root/.dotnet:${PATH}"
+
+FROM dotnet9 AS dotnet9-jre-21
+RUN apt-get update && \
+    apt-get install -y openjdk-21-jre-headless --no-install-recommends && \
+    apt-get clean
+
 FROM base AS go
 ARG TARGETARCH
 RUN curl -fsSL https://golang.org/dl/$(curl -fsSL "https://go.dev/VERSION?m=text" | head -n 1).linux-${TARGETARCH}.tar.gz | tar -C /usr/local -xz && \
